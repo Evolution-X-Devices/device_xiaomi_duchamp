@@ -13,6 +13,9 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.REBOOT" />
     <uses-permission android:name="android.permission.ACCESS_SURFACE_FLINGER" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <uses-permission android:name="android.permission.SET_ACTIVITY_WATCHER" />
     <application
@@ -58,6 +61,64 @@
                 android:value="orange" />
         </activity>
 
+       <!-- GameBar Settings Activity -->
+        <activity
+            android:name=".gamebar.GameBarSettingsActivity"
+            android:exported="true"
+            android:label="@string/game_bar_title"
+            android:theme="@style/Theme.SubSettingsBase">
+            <intent-filter>
+                <action android:name="com.android.settings.action.IA_SETTINGS" />
+            </intent-filter>
+
+            <meta-data
+                android:name="com.android.settings.category"
+                android:value="com.android.settings.category.ia.apps" />
+            <meta-data
+                android:name="com.android.settings.summary"
+                android:resource="@string/game_bar_summary" />
+        </activity>
+
+        <!-- GameBar App Selector & Remover -->
+        <activity
+            android:name=".gamebar.GameBarAppSelectorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".gamebar.GameBarAppRemoverActivity"
+            android:exported="false" />
+
+        <!-- Quick Settings Tile Service -->
+        <service
+            android:name=".gamebar.GameBarTileService"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true"
+            android:label="@string/game_bar_tile_label"
+            android:icon="@drawable/ic_gamebar">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.TOGGLEABLE_TILE"
+                android:value="true" />
+        </service>
+
+        <!-- GameBar Monitor Service -->
+        <service
+            android:name=".gamebar.GameBarMonitorService"
+            android:exported="false" />
+
+        <!-- GameBar Boot Receiver -->
+        <receiver
+            android:name=".gamebar.GameBarBootReceiver"
+            android:exported="true"
+            android:enabled="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        
         <receiver
             android:name=".BootCompletedReceiver"
             android:exported="true"

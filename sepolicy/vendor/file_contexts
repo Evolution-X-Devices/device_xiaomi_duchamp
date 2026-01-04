@@ -43,3 +43,6 @@
 
 # Wakelock Blocker
 /sys/power/wakelock_blocker(/.*)?                                                                      u:object_r:vendor_sysfs_wakelock_blocker:s0
+
+# Process and system statistics files
+/proc/stat                                                                                                                                                u:object_r:proc_stat:s0
