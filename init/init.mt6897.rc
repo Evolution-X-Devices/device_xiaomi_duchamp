@@ -302,6 +302,9 @@ on boot
     # Power Manager
     write /sys/power/pm_freeze_timeout 2000
 
+    # USB
+    mkdir /config/usb_gadget/g1/functions/mass_storage.0
+
 # Mount mdota
 on property:ro.boot.slot_suffix=_a
     # Set SELinux security contexts on upgrade or policy update.
