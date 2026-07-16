@@ -125,6 +125,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_VENDOR_LINKER_CONFIG_FRAGMENTS += \
     $(LOCAL_PATH)/configs/linker.config.json
 
+# Dolby Atmos
+$(call inherit-product, hardware/dolby/dolby.mk)
+
 # Fastbootd
 PRODUCT_PACKAGES += \
     fastbootd

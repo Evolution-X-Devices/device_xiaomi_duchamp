@@ -18,5 +18,10 @@
   {
     "repository": "vendor_xiaomi_duchamp",
     "target_path": "vendor/xiaomi/duchamp"
+  },
+  {
+    "repository": "hardware_dolby",
+    "target_path": "hardware/dolby",
+    "branch": "cnb-aospa"
   }
 ]
