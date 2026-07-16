@@ -199,3 +199,6 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Inherit the proprietary files
 include vendor/xiaomi/duchamp/BoardConfigVendor.mk
+
+# Inherit the miuicamera
+include device/xiaomi/duchamp-miuicamera/BoardConfig.mk
