@@ -26,3 +26,7 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     BuildDesc="missi-user 16 BP2A.250605.031.A3 OS3.0.9.0.WNLMIXM release-keys" \
     BuildFingerprint=POCO/duchamp_global/duchamp:16/BP2A.250605.031.A3/OS3.0.9.0.WNLMIXM:user/release-keys \
     DeviceProduct=duchamp_global
+
+# Build Flags
+TARGET_HAS_UDFPS := true
+USE_REALITY_ENGINE := false
