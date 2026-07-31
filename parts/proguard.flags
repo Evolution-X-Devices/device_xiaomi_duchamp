@@ -1,0 +1,23 @@
+#
+# ==============================================================
+#    __  __  _____   __    ___    ___   _____   _
+#   |  \/  ||_   _| / /_  ( _ )  / _ \ |___  | / \
+#   | |\/| |  | |  | '_ \ / _ \ | (_) |   / / / _ \
+#   | |  | |  | |  | (_) | (_) | \__, |  / / / ___ \
+#   |_|  |_|  |_|   \___/ \___/    /_/  /_/ /_/   \_\
+#
+#  SPDX-FileCopyRightText: The LineageOS Project
+#  SPDX-FileCopyRightText: 2026 MT6897A
+#  SPDX-License-Identifier: Apache-2.0
+# ==============================================================
+#
+
+-keep class com.xiaomi.settings.** { *; }
+
+
+-keep public class * extends androidx.preference.* {
+    public <init>(...);
+}
+-keep public class * extends com.android.settingslib.widget.* {
+    public <init>(...);
+}

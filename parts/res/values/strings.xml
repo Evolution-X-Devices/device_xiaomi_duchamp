@@ -1,9 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     SPDX-FileCopyrightText: The LineageOS Project
-     SPDX-License-Identifier: Apache-2.0
+ ==============================================================
+    __  __  _____   __    ___    ___   _____   _
+   |  \/  ||_   _| / /_  ( _ )  / _ \ |___  | / \
+   | |\/| |  | |  | '_ \ / _ \ | (_) |   / / / _ \
+   | |  | |  | |  | (_) | (_) | \__, |  / / / ___ \
+   |_|  |_|  |_|   \___/ \___/    /_/  /_/ /_/   \_\
+
+  SPDX-FileCopyRightText: The LineageOS Project
+  SPDX-FileCopyRightText: 2026 MT6897A
+  SPDX-License-Identifier: Apache-2.0
+ ==============================================================
 -->
 <resources>
     <!-- App Name -->
-    <string name="app_name">Xiaomi Parts</string>
+    <string name="app_name">Xiaomi Settings</string>
+    <string name="parts_summary">Manage device specific features</string>
+
+    <!-- Main Settings Screen -->
+    <string name="parts_top_card_title">Enable Xiaomi Settings</string>
+    <string name="parts_category_title">General Settings</string>
+    <string name="thermal_button_title">Thermal Management</string>
+    <string name="thermal_button_summary">Adjust thermal profiles for gaming or battery saving</string>
+    <string name="core_control_button_title">Core Control</string>
+    <string name="core_control_button_summary">Enable or disable specific CPU cores</string>
+    <string name="htsr_button_title">High Touch Sample Rate</string>
+    <string name="htsr_button_summary">Improve touch responsiveness and reduce input lag</string>
+    <string name="freq_control_button_title">Frequency Control</string>
+    <string name="freq_control_button_summary">Tune CPU and GPU clock speeds</string>
+    <string name="tweaks_button_title">Kernel Tweaks</string>
+    <string name="tweaks_button_summary">Manage system wakelocks and logging</string>
+    <string name="battery_button_title">Battery settings</string>
+    <string name="battery_button_summary">Manage charging limits and battery notification</string>
+    <string name="parts_footer_title">Xiaomi Settings provides advanced device-specific hardware controls to optimize performance, battery life, and overall user experience.</string>
+
+    <!-- Thermals -->
+    <string name="thermal_title">Thermal profiles dictate power delivery and performance limits based on the device temperature to prevent overheating and optimize battery life.</string>
+
+    <!-- Core Control -->   
+    <string name="core_control_title">Advanced CPU control. Turning off cores may save battery or thermal load, but may affect performance and stability.\n\nAt least two little cores must remain online at all times.</string>
+
+    <!-- HTSR -->
+    <string name="htsr_title">High Touch Sample Rate is used to increase the responsiveness of the display.</string>
+
+    <!-- Kernel Tweaks -->
+    <string name="tweaks_title">Advanced kernel tuning. Disable unnecessary wake-locks and debugging logs to minimize background drain and extend deep sleep.</string>
+
+    <!-- Battery Settings -->
+    <string name="battery_title">Set maximum charging current limits to preserve long-term battery health, and notification real-time battery statistics on your QS.</string>
 </resources>

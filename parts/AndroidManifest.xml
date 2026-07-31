@@ -15,10 +15,46 @@
 
     <application
         android:label="@string/app_name"
-        android:persistent="true"
         android:defaultToDeviceProtectedStorage="true"
         android:directBootAware="true"
+        android:enableOnBackInvokedCallback="true"
         android:theme="@style/Theme.SubSettingsBase.Expressive">
+
+        <activity
+            android:name=".PartsActivity"
+            android:label="@string/app_name"
+            android:exported="true"
+            android:icon="@drawable/ic_settings_xiaomi_parts">
+            <intent-filter android:priority="1">
+                <action android:name="com.android.settings.action.EXTRA_SETTINGS" />
+                <action android:name="com.android.settings.action.IA_SETTINGS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data
+                android:name="com.android.settings.category"
+                android:value="com.android.settings.category.ia.homepage" />
+            <meta-data
+                android:name="com.android.settings.group_key"
+                android:value="top_level_personalize_category" />
+            <meta-data
+                android:name="com.android.settings.order"
+                android:value="-70" />
+            <meta-data
+                android:name="com.android.settings.keyhint"
+                android:value="top_level_xiaomi_parts" />
+            <meta-data
+                android:name="com.android.settings.summary"
+                android:resource="@string/parts_summary" />
+            <meta-data
+                android:name="com.android.settings.icon"
+                android:resource="@drawable/ic_settings_xiaomi_parts" />
+            <meta-data
+                android:name="com.android.settings.icon_tintable"
+                android:value="true" />
+            <meta-data
+                android:name="com.android.settings.icon_color_scheme"
+                android:value="orange" />
+        </activity>
 
         <receiver
             android:name=".BootCompletedReceiver"

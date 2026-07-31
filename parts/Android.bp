@@ -11,9 +11,14 @@ android_app {
     platform_apis: true,
     privileged: true,
     system_ext_specific: true,
+    optimize: {
+        proguard_flags_files: ["proguard.flags"],
+    },
     static_libs: [
         "androidx.core_core",
         "androidx.preference_preference",
+        "com.google.android.material_material",
+        "setupdesign-lottie-loading-layout",
         "org.lineageos.settings.resources",
         "vendor.xiaomi.hardware.displayfeature_aidl-V2-java",
     ],

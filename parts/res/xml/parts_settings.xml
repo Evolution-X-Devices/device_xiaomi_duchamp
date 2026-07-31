@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ ==============================================================
+    __  __  _____   __    ___    ___   _____   _
+   |  \/  ||_   _| / /_  ( _ )  / _ \ |___  | / \
+   | |\/| |  | |  | '_ \ / _ \ | (_) |   / / / _ \
+   | |  | |  | |  | (_) | (_) | \__, |  / / / ___ \
+   |_|  |_|  |_|   \___/ \___/    /_/  /_/ /_/   \_\
+
+  SPDX-FileCopyRightText: The LineageOS Project
+  SPDX-FileCopyRightText: 2026 MT6897A
+  SPDX-License-Identifier: Apache-2.0
+ ==============================================================
+-->
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="xiaomi_parts_screen"
+    android:title="@string/app_name">
+
+    <com.android.settingslib.widget.MainSwitchPreference
+        android:key="main_switch"
+        android:title="@string/parts_top_card_title"
+        android:defaultValue="false" />
+
+    <PreferenceCategory
+        android:key="parts_category"
+        android:title="@string/parts_category_title">
+
+        <Preference
+            android:key="thermal"
+            android:title="@string/thermal_button_title"
+            android:summary="@string/thermal_button_summary"
+            android:icon="@drawable/ic_thermal"
+            android:fragment="com.xiaomi.settings.thermal.ThermalSettingsFragment" />
+
+        <Preference
+            android:key="core_control"
+            android:title="@string/core_control_button_title"
+            android:summary="@string/core_control_button_summary"
+            android:icon="@drawable/ic_core_control"
+            android:fragment="com.xiaomi.settings.corecontrol.CoreControlSettingsFragment" />
+
+        <Preference
+            android:key="htsr"
+            android:title="@string/htsr_button_title"
+            android:summary="@string/htsr_button_summary"
+            android:icon="@drawable/ic_htsr"
+            android:fragment="com.xiaomi.settings.htsr.HTSRSettingsFragment" />
+
+        <Preference
+            android:key="tweaks"
+            android:title="@string/tweaks_button_title"
+            android:summary="@string/tweaks_button_summary"
+            android:icon="@drawable/ic_tweaks"
+            android:fragment="com.xiaomi.settings.tweaks.TweaksSettingsFragment" />
+
+        <Preference
+            android:key="battery"
+            android:title="@string/battery_button_title"
+            android:summary="@string/battery_button_summary"
+            android:icon="@drawable/ic_battery"
+            android:fragment="com.xiaomi.settings.battery.BatterySettingsFragment" />
+
+    </PreferenceCategory>
+
+    <com.android.settingslib.widget.FooterPreference
+        android:key="parts_footer"
+        android:title="@string/parts_footer_title" />
+
+</PreferenceScreen>

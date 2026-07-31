@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ ==============================================================
+    __  __  _____   __    ___    ___   _____   _
+   |  \/  ||_   _| / /_  ( _ )  / _ \ |___  | / \
+   | |\/| |  | |  | '_ \ / _ \ | (_) |   / / / _ \
+   | |  | |  | |  | (_) | (_) | \__, |  / / / ___ \
+   |_|  |_|  |_|   \___/ \___/    /_/  /_/ /_/   \_\
+
+  SPDX-FileCopyRightText: The LineageOS Project
+  SPDX-FileCopyRightText: 2026 MT6897A
+  SPDX-License-Identifier: Apache-2.0
+ ==============================================================
+-->
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/battery_button_title">
+
+    <com.android.settingslib.widget.FooterPreference
+        android:key="battery_info"
+        android:title="@string/battery_title" />
+
+</PreferenceScreen>
