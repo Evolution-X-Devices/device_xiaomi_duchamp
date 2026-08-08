@@ -39,7 +39,20 @@
 
     <!-- Core Control -->   
     <string name="core_control_title">Advanced CPU control. Turning off cores may save battery or thermal load, but may affect performance and stability.\n\nAt least two little cores must remain online at all times.</string>
-
+    <string name="core_control_switch">Enable Core Control</string>
+    <string name="small_cores_category_title">Small Cores</string>
+    <string name="big_cores_category_title">Big Cores</string>
+    <string name="prime_cores_category_title">Prime Core</string>
+    <string name="core_1">Core 1</string>
+    <string name="core_2">Core 2</string>
+    <string name="core_3">Core 3</string>
+    <string name="core_4">Core 4</string>
+    <string name="core_5">Core 5</string>
+    <string name="core_6">Core 6</string>
+    <string name="core_7">Core 7</string>
+    <string name="core_8">Core 8</string>
+    <string name="core_control_toast">At least 2 small cores must remain online</string>
+    
     <!-- HTSR -->
     <string name="htsr_title">High Touch Sample Rate is used to increase the responsiveness of the display.</string>
 

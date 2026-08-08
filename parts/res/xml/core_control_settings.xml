@@ -16,6 +16,69 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/core_control_button_title">
 
+    <com.android.settingslib.widget.MainSwitchPreference
+        android:key="core_control_switch"
+        android:title="@string/core_control_switch"
+        android:defaultValue="false" />
+
+    <PreferenceCategory
+        android:key="small_cores_category"
+        android:title="@string/small_cores_category_title">
+
+        <SwitchPreferenceCompat
+        android:key="core1"
+        android:title="@string/core_1"
+        android:defaultValue="true" />
+
+        <SwitchPreferenceCompat
+        android:key="core2"
+        android:title="@string/core_2"
+        android:defaultValue="true" />
+
+        <SwitchPreferenceCompat
+        android:key="core3"
+        android:title="@string/core_3"
+        android:defaultValue="true" />
+
+        <SwitchPreferenceCompat
+        android:key="core4"
+        android:title="@string/core_4"
+        android:defaultValue="true" />
+    
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="big_cores_category"
+        android:title="@string/big_cores_category_title">
+
+        <SwitchPreferenceCompat
+        android:key="core5"
+        android:title="@string/core_5"
+        android:defaultValue="true" />
+
+        <SwitchPreferenceCompat
+        android:key="core6"
+        android:title="@string/core_6"
+        android:defaultValue="true" />
+
+        <SwitchPreferenceCompat
+        android:key="core7"
+        android:title="@string/core_7"
+        android:defaultValue="true" />
+    
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="prime_cores_category"
+        android:title="@string/prime_cores_category_title">
+
+        <SwitchPreferenceCompat
+        android:key="core8"
+        android:title="@string/core_8"
+        android:defaultValue="true" />
+    
+    </PreferenceCategory>
+
     <com.android.settingslib.widget.FooterPreference
         android:key="core_control_info"
         android:title="@string/core_control_title" />
