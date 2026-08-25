@@ -12,12 +12,51 @@
   SPDX-License-Identifier: Apache-2.0
  ==============================================================
 -->
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/thermal_button_title">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:settings="http://schemas.android.com/apk/res-auto"
+    android:title="Thermal profile">
+
+    <com.android.settingslib.widget.LayoutPreference
+        android:key="thermal_header"
+        android:layout="@layout/thermal_header_card"
+        settings:allowDividerBelow="true" />
+
+    <PreferenceCategory android:key="thermal_profiles_category">
+        <com.xiaomi.settings.thermal.RadioButtonPreference
+            android:key="thermal_profile_balance"
+            android:title="@string/thermal_profile_balanced"
+            android:icon="@drawable/ic_thermal_balance" />
+            
+        <com.xiaomi.settings.thermal.RadioButtonPreference
+            android:key="thermal_profile_performance"
+            android:title="@string/thermal_profile_performance"
+            android:icon="@drawable/ic_thermal_performance" />
+            
+        <com.xiaomi.settings.thermal.RadioButtonPreference
+            android:key="thermal_profile_battery_saver"
+            android:title="@string/thermal_profile_battery_saver"
+            android:icon="@drawable/ic_thermal_battery" />
+            
+        <com.xiaomi.settings.thermal.RadioButtonPreference
+            android:key="thermal_profile_game"
+            android:title="@string/thermal_profile_game"
+            android:icon="@drawable/ic_thermal_game" />
+            
+        <com.xiaomi.settings.thermal.RadioButtonPreference
+            android:key="thermal_profile_danger"
+            android:title="@string/thermal_profile_danger"
+            android:icon="@drawable/ic_thermal_danger" />
+    </PreferenceCategory>
+
+    <PreferenceCategory>
+        <SwitchPreferenceCompat
+            android:key="thermal_auto_mode"
+            android:title="@string/thermal_auto_mode_title"
+            android:summary="@string/thermal_auto_mode_summary" />
+    </PreferenceCategory>
 
     <com.android.settingslib.widget.FooterPreference
-        android:key="thremal_info"
+        android:key="thermal_title"
         android:title="@string/thermal_title" />
 
 </PreferenceScreen>

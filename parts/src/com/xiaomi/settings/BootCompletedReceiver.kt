@@ -43,6 +43,14 @@ class BootCompletedReceiver : BroadcastReceiver() {
     private fun onLockedBootCompleted(context: Context) {
         // Display
         ColorService.startService(context)
+
+        // Thermals
+        val prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
+        prefs.edit().putString("thermal_profile", com.xiaomi.settings.thermal.ThermalUtils.getCurrentProfile()).apply()
+
+        if (prefs.getBoolean("thermal_auto_mode", false)) {
+            com.xiaomi.settings.thermal.ThermalService.startService(context)
+        }
     }
 
     companion object {

@@ -1,2 +1,6 @@
 hal_client_domain(system_app, hal_mlipay)
 hal_client_domain(system_app, vendor_hal_displayfeature)
+
+# Thermals
+allow system_app sysfs_therm:dir search;
+allow system_app sysfs_therm:file rw_file_perms;

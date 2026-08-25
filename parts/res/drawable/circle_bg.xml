@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ ==============================================================
+    __  __  _____   __    ___    ___   _____   _
+   |  \/  ||_   _| / /_  ( _ )  / _ \ |___  | / \
+   | |\/| |  | |  | '_ \ / _ \ | (_) |   / / / _ \
+   | |  | |  | |  | (_) | (_) | \__, |  / / / ___ \
+   |_|  |_|  |_|   \___/ \___/    /_/  /_/ /_/   \_\
+
+  SPDX-FileCopyRightText: The LineageOS Project
+  SPDX-FileCopyRightText: 2026 MT6897A
+  SPDX-License-Identifier: Apache-2.0
+ ==============================================================
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#FFFFFF" />
+</shape>

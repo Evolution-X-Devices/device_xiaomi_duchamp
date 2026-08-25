@@ -35,7 +35,19 @@
     <string name="parts_footer_title">Xiaomi Settings provides advanced device-specific hardware controls to optimize performance, battery life, and overall user experience.</string>
 
     <!-- Thermals -->
-    <string name="thermal_title">Thermal profiles dictate power delivery and performance limits based on the device temperature to prevent overheating and optimize battery life.</string>
+    <string name="thermal_title">Thermal profiles dictate power delivery and performance limits based on the device temperature to prevent overheating and optimize battery life.\n\nNote: High frequencies are available only in Game, Performance, and Danger mode.\n\nWARNING: Danger mode DONT have any limits, use carefully.</string>
+    <string name="thermal_profile_active_subtitle">Current thermal profile</string>
+    <string name="thermal_profile_battery_saver">Battery Saver</string>
+    <string name="thermal_profile_balanced">Balanced</string>
+    <string name="thermal_profile_performance">Performance</string>
+    <string name="thermal_profile_game">Game</string>
+    <string name="thermal_profile_danger">Danger</string>
+    <string name="thermal_danger_notification_title">Danger profile enabled.</string>
+    <string name="thermal_notification_channel_name">Xiaomi Parts</string>
+    <string name="thermal_danger_toast">WARNING: Danger profile is enabled, it has no thermal limits, so overheating or device breakdown may occur.\n\nUse with caution.</string>
+    <string name="thermal_profile_unknown">Unknown</string>
+    <string name="thermal_auto_mode_title">Enable Auto Mode</string>
+    <string name="thermal_auto_mode_summary">Automatically apply the Battery Saver profile when the screen is off.</string>
 
     <!-- Core Control -->   
     <string name="core_control_title">Advanced CPU control. Turning off cores may save battery or thermal load, but may affect performance and stability.\n\nAt least two little cores must remain online at all times.</string>
@@ -51,7 +63,7 @@
     <string name="core_6">Core 6</string>
     <string name="core_7">Core 7</string>
     <string name="core_8">Core 8</string>
-    <string name="core_control_toast">At least 2 small cores must remain online</string>
+    <string name="core_control_toast">At least 2 small cores must remain online.</string>
     
     <!-- HTSR -->
     <string name="htsr_title">High Touch Sample Rate is used to increase the responsiveness of the display.</string>
