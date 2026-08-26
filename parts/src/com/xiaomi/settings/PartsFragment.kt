@@ -33,7 +33,15 @@ class PartsFragment : SettingsBasePreferenceFragment() {
             val isEnabled = newValue as Boolean
 
             partsCategory?.isEnabled = isEnabled
-
+            
+            // when parts is disabled, set profile to balanced
+            if (!isEnabled) {
+                val prefs = preferenceManager.sharedPreferences
+                prefs?.edit()?.putString("thermal_profile", "2")?.apply()
+                com.xiaomi.settings.thermal.ThermalUtils.applyProfile(requireContext(), "2")
+                com.xiaomi.settings.thermal.ThermalUtils.clearDangerNotification(requireContext())
+            }
+            
             true
         }
     }

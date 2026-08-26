@@ -21,10 +21,24 @@ import com.xiaomi.settings.R
 
 class ThermalProfileTileService : TileService() {
 
+    private fun isPartsEnabled(): Boolean {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        return prefs.getBoolean("main_switch", false)
+    }
+
     private fun updateUI(profile: String) {
         val tile = qsTile ?: return
         
         tile.label = getString(R.string.thermal_qs_title)
+
+        // disable tile when parts is disabled
+        if (!isPartsEnabled()) {
+            tile.subtitle = getString(R.string.thermal_profile_balanced) // Balanced
+            tile.icon = Icon.createWithResource(this, R.drawable.ic_thermal_balance)
+            tile.state = Tile.STATE_UNAVAILABLE
+            tile.updateTile()
+            return
+        }
 
         // strings
         val subtitleRes = when (profile) {
@@ -59,6 +73,8 @@ class ThermalProfileTileService : TileService() {
 
     override fun onClick() {
         super.onClick()
+        if (!isPartsEnabled()) return
+
         val currentProfile = ThermalUtils.getCurrentProfile()
         
         // profiles switching
