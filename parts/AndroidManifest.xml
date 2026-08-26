@@ -75,6 +75,17 @@
         <service
             android:name=".thermal.ThermalService"
             android:exported="false" />
+            
+        <service
+            android:name=".thermal.ThermalProfileTileService"
+            android:icon="@drawable/ic_thermal_balance"
+            android:label="@string/thermal_button_title"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
     </application>
 </manifest>
 

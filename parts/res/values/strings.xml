@@ -36,6 +36,7 @@
 
     <!-- Thermals -->
     <string name="thermal_title">Thermal profiles dictate power delivery and performance limits based on the device temperature to prevent overheating and optimize battery life.\n\nNote: High frequencies are available only in Game, Performance, and Danger mode.\n\nWARNING: Danger mode DONT have any limits, use carefully.</string>
+    <string name="thermal_qs_title">Thermal profile</string>
     <string name="thermal_profile_active_subtitle">Current thermal profile</string>
     <string name="thermal_profile_battery_saver">Battery Saver</string>
     <string name="thermal_profile_balanced">Balanced</string>
