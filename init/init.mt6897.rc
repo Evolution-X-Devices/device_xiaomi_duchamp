@@ -335,3 +335,7 @@ on property:ro.boot.slot_suffix=_b
 # reset mdmode when modem crash happens in ATM
 on property:vendor.mtk.md1.status=reset
     setprop persist.vendor.atm.mdmode normal
+
+# set profile to Balanced when phone is started
+on property:sys.boot_completed=1
+    write /sys/class/thermal/thermal_message/sconfig 0
