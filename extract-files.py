@@ -199,7 +199,8 @@ blob_fixups: blob_fixups_user_type = {
         .replace_needed('libcodec2_soft_common.so', 'libcodec2_soft_common-v34.so')
         .replace_needed('libcodec2_vndk.so', 'libcodec2_vndk-v34.so')
         .replace_needed('libsfplugin_ccodec_utils.so', 'libsfplugin_ccodec_utils-v34.so')
-        .replace_needed('libui.so', 'libui-v34.so'),
+        .replace_needed('libui.so', 'libui-v34.so')
+        .replace_needed('libformatter.so', 'libformatter-v34.so'),
 
     'vendor/lib64/libcodec2_soft_common-v34.so': blob_fixup()
         .replace_needed('libcodec2_vndk.so', 'libcodec2_vndk-v34.so')
@@ -229,6 +230,10 @@ blob_fixups: blob_fixups_user_type = {
 
     'vendor/etc/init/tee-supplicant.rc': blob_fixup()
         .regex_replace('chown system system /dev/ufs-bsg0', 'chown root system /dev/ufs-bsg0'),
+    
+	'vendor/bin/mnld': blob_fixup()
+	    .replace_needed('libmnl.so', 'libmnl-v34.so'),
+
 }  # fmt: skip
 
 module = ExtractUtilsModule(

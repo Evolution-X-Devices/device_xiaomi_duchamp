@@ -1343,7 +1343,7 @@ vendor/lib64/hw/gps.default.so
 vendor/lib64/hw/mtkgeofence.default.so
 vendor/lib64/hw/vendor.mediatek.hardware.gnss-impl.so
 vendor/lib64/mt6897/libDR.so;SYMLINK=vendor/lib64/libDR.so
-vendor/lib64/mt6897/libmnl.so;SYMLINK=vendor/lib64/libmnl.so
+vendor/lib64/mt6897/libmnl.so:vendor/lib64/libmnl-v34.so;FIX_SONAME
 vendor/lib64/mtk_lbs_service-impl.so
 vendor/lib64/vendor.mediatek.hardware.gnss-V1-ndk.so
 vendor/lib64/vendor.mediatek.hardware.lbs-V1-ndk.so
@@ -1398,7 +1398,7 @@ vendor/lib64/libcodec2_vpp_fa_plugin.so
 vendor/lib64/libcodec2_vpp_mi_plugin.so
 vendor/lib64/libcodec2_vpp_qt_plugin.so
 vendor/lib64/libcodec2_vpp_rs_plugin.so
-vendor/lib64/libformatter.so
+vendor/lib64/libformatter.so:vendor/lib64/libformatter-v34.so;FIX_SONAME
 vendor/lib64/libsfplugin_ccodec_utils.so:vendor/lib64/libsfplugin_ccodec_utils-v34.so;FIX_SONAME
 
 # Mfido
