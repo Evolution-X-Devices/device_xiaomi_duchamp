@@ -200,3 +200,4 @@ goodix_core.ko
 xlogchar.ko
 cam_log.ko
 si_haptic.ko
+ntsync.ko
