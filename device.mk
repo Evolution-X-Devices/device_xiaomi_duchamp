@@ -142,6 +142,9 @@ PRODUCT_PACKAGES += \
 
 $(call soong_config_set,XIAOMI_BIOMETRICS_FINGERPRINT,IMPL_VER,V2)
 
+# Fenrir
+$(call soong_config_set_bool,fastbootd,bypass_lock_state,true)
+
 # GNSS
 PRODUCT_PACKAGES += \
     android.hardware.location.gps.prebuilt.xml
