@@ -149,6 +149,9 @@ $(call soong_config_set_bool,fastbootd,bypass_lock_state,true)
 PRODUCT_PACKAGES += \
     android.hardware.location.gps.prebuilt.xml
 
+# GameBar
+$(call inherit-product-if-exists, packages/apps/GameBar/gamebar.mk)
+
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health-service.mediatek \
