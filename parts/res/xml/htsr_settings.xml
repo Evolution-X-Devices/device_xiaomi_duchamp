@@ -14,10 +14,36 @@
 -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:settings="http://schemas.android.com/apk/res-auto"
+    android:key="htsr_screen"
     android:title="@string/htsr_button_title">
 
+    <com.android.settingslib.widget.LayoutPreference
+        android:key="htsr_header"
+        android:layout="@layout/htsr_header_card"
+        settings:allowDividerBelow="true" />
+
+    <com.android.settingslib.widget.MainSwitchPreference
+        android:key="htsr_global_enable"
+        android:title="@string/htsr_global_enable_title"
+        android:summary="@string/htsr_global_enable_summary"
+        android:defaultValue="false" />
+
+    <PreferenceCategory
+        android:key="htsr_apps_category"
+        android:title="@string/htsr_per_app_category_title">
+
+        <Preference
+            android:key="htsr_per_app"
+            android:title="@string/htsr_per_app_title"
+            android:summary="@string/htsr_per_app_summary"
+            android:fragment="com.xiaomi.settings.htsr.HTSRAppListFragment" />
+
+    </PreferenceCategory>
+
     <com.android.settingslib.widget.FooterPreference
-        android:key="htsr_title"
+        android:key="htsr_footer"
         android:title="@string/htsr_title" />
 
 </PreferenceScreen>

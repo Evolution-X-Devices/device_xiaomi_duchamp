@@ -42,10 +42,15 @@ class BootCompletedReceiver : BroadcastReceiver() {
 
     private fun onLockedBootCompleted(context: Context) {
         // Display
+        // HTSR
+        val prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
+        if (prefs.getBoolean("htsr_global_enable", false) || prefs.getBoolean("htsr_enable", false)) {
+            com.xiaomi.settings.htsr.HTSRService.startService(context)
+        }
+
         ColorService.startService(context)
 
         // Thermals
-        val prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
         prefs.edit().putString("thermal_profile", com.xiaomi.settings.thermal.ThermalUtils.getCurrentProfile()).apply()
 
         if (prefs.getBoolean("thermal_auto_mode", false)) {

@@ -1,0 +1,60 @@
+/*
+ * ==============================================================
+ *    __  __  _____   __    ___    ___   _____   _
+ *   |  \/  ||_   _| / /_  ( _ )  / _ \ |___  | / \
+ *   | |\/| |  | |  | '_ \ / _ \ | (_) |   / / / _ \
+ *   | |  | |  | |  | (_) | (_) | \__, |  / / / ___ \
+ *   |_|  |_|  |_|   \___/ \___/    /_/  /_/ /_/   \_\
+ *
+ *  SPDX-FileCopyrightText: 2024 The Evolution X Project
+ *  SPDX-FileCopyRightText: 2026 MT6897A
+ *  SPDX-License-Identifier: Apache-2.0
+ * ==============================================================
+ */
+
+package com.xiaomi.settings.htsr.ui
+
+
+
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import com.xiaomi.settings.R
+
+@Composable
+fun AppPickerSearchField(
+    query: String,
+    onQueryChange: (String) -> Unit,
+    enabled: Boolean = true,
+) {
+    OutlinedTextField(
+        value = query,
+        onValueChange = onQueryChange,
+        modifier = Modifier.fillMaxWidth(),
+        placeholder = { Text(stringResource(R.string.action_search_apps)) },
+        leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+        trailingIcon = {
+            if (query.isNotEmpty()) {
+                IconButton(onClick = { onQueryChange("") }) {
+                    Icon(
+                        Icons.Default.Close,
+                        contentDescription = stringResource(R.string.common_clear_search),
+                    )
+                }
+            }
+        },
+        singleLine = true,
+        shape = RoundedCornerShape(12.dp),
+        enabled = enabled,
+    )
+}

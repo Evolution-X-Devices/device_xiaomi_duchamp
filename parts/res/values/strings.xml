@@ -68,6 +68,24 @@
     
     <!-- HTSR -->
     <string name="htsr_title">High Touch Sample Rate is used to increase the responsiveness of the display.</string>
+    <string name="htsr_global_enable_title">Enable HTSR globally</string>
+    <string name="htsr_global_enable_summary">Keep high touch polling active system-wide</string>
+    <string name="htsr_per_app_category_title">Per-App Configuration</string>
+    <string name="htsr_per_app_title">Select Apps</string>
+    <string name="htsr_per_app_summary">Choose which apps will trigger HTSR</string>
+    <string name="htsr_per_app_disabled_summary">Unavailable while global HTSR is active</string>
+    <string name="htsr_per_app_enable_title">Enable Per-App HTSR</string>
+    <string name="htsr_per_app_disabled_subtitle">Per-App HTSR is disabled</string>
+    <string name="htsr_none_configured">No apps selected</string>
+    <string name="htsr_count">%1$d apps selected</string>
+    <string name="htsr_empty_description">Select apps to enable High Touch Sample Rate</string>
+    <string name="action_select_all">Select All</string>
+    <string name="action_reset">Reset</string>
+    <string name="show_system_apps">Show system apps</string>
+    <string name="search_apps">Search apps</string>
+    <string name="common_system_badge">System</string>
+    <string name="common_clear_search">Clear search</string>
+    <string name="action_search_apps">Search apps</string>
 
     <!-- Kernel Tweaks -->
     <string name="tweaks_title">Advanced kernel tuning. Disable unnecessary wake-locks and debugging logs to minimize background drain and extend deep sleep.</string>
