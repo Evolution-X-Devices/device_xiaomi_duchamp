@@ -302,6 +302,14 @@ on boot
     # TCP
     chmod 0666 /proc/sys/net/ipv4/tcp_congestion_control
 
+    # ZRAM
+    chown system system /sys/block/zram0/comp_algorithm
+    chown system system /sys/block/zram0/recomp_algorithm
+    chown system system /sys/block/zram0/recompress
+    chmod 0664 /sys/block/zram0/comp_algorithm
+    chmod 0664 /sys/block/zram0/recomp_algorithm
+    chmod 0664 /sys/block/zram0/recompress
+
     # Power Manager
     write /sys/power/pm_freeze_timeout 2000
 

@@ -201,6 +201,18 @@
     <string name="tcp_congestion_bbr3">BBRv3 (Google Bottleneck Bandwidth and RTT)</string>
     <string name="tcp_congestion_cubic">Cubic (Default Linux TCP)</string>
     <string name="tcp_congestion_reno">Reno (Standard TCP)</string>
+    <string name="zram_category_title">Memory &amp; ZRAM</string>
+    <string name="zram_recomp_algorithm_title">Secondary Compression Algorithm</string>
+    <string name="zram_recomp_algorithm_summary">Algorithm used to recompress idle and cold memory pages: %s</string>
+    <string name="zram_recompress_title">Recompress Memory Now</string>
+    <string name="zram_recompress_summary">Force immediate recompression of cold pages to free RAM</string>
+    <string name="zram_recompress_toast_success">Memory recompression initiated</string>
+    <string name="zram_recompress_toast_failed">Failed to trigger memory recompression</string>
+    <string name="zram_recomp_algorithm_reboot_pending">%s (reboot required)</string>
+    <string name="zram_reboot_dialog_title">Reboot required</string>
+    <string name="zram_reboot_dialog_message">Pages in ZRAM are currently compressed with the active algorithm. Restart your device to apply %s.</string>
+    <string name="zram_reboot_dialog_reboot_now">Restart now</string>
+    <string name="zram_reboot_dialog_later">Later</string>
 
     <!-- Battery Settings -->
     <string name="battery_title">Set maximum charging current limits to preserve long-term battery health, and notification real-time battery statistics on your QS.</string>

@@ -14,10 +14,15 @@
 
 package com.xiaomi.settings.tweaks
 
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.PowerManager
+import android.widget.Toast
 import androidx.preference.ListPreference
 import androidx.preference.Preference
+import androidx.preference.PreferenceManager
 import com.android.settingslib.widget.SettingsBasePreferenceFragment
 import com.xiaomi.settings.PartsActivity
 import com.xiaomi.settings.R
@@ -49,6 +54,7 @@ class TweaksSettingsFragment : SettingsBasePreferenceFragment() {
         }
 
         setupTcpCongestion()
+        setupZram()
         updateSummaries()
     }
 
@@ -90,6 +96,81 @@ class TweaksSettingsFragment : SettingsBasePreferenceFragment() {
         return getString(R.string.tcp_congestion_summary, label)
     }
 
+    private fun setupZram() {
+        val recompPref = findPreference<ListPreference>(KernelTweaksUtils.KEY_ZRAM_RECOMP_ALGORITHM)
+        val recompressPref = findPreference<Preference>("zram_recompress")
+
+        if (recompPref != null) {
+            val available = KernelTweaksUtils.getAvailableZramAlgorithms()
+            val entries = available.map { it.uppercase() }.toTypedArray()
+            val entryValues = available.toTypedArray()
+
+            recompPref.entries = entries
+            recompPref.entryValues = entryValues
+
+            val current = KernelTweaksUtils.getCurrentZramRecompAlgorithm()
+            val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            val savedAlgo = prefs.getString(KernelTweaksUtils.KEY_ZRAM_RECOMP_ALGORITHM, null)
+
+            val displayAlgo = if (!savedAlgo.isNullOrBlank()) savedAlgo else current
+            recompPref.value = displayAlgo
+
+            if (!savedAlgo.isNullOrBlank() && !savedAlgo.equals(current, ignoreCase = true)) {
+                recompPref.summary = getString(
+                    R.string.zram_recomp_algorithm_summary,
+                    getString(R.string.zram_recomp_algorithm_reboot_pending, savedAlgo.uppercase())
+                )
+            } else {
+                recompPref.summary = getString(R.string.zram_recomp_algorithm_summary, current.uppercase())
+            }
+
+            recompPref.setOnPreferenceChangeListener { _, newValue ->
+                val algo = newValue.toString()
+                PreferenceManager.getDefaultSharedPreferences(requireContext())
+                    .edit()
+                    .putString(KernelTweaksUtils.KEY_ZRAM_RECOMP_ALGORITHM, algo)
+                    .apply()
+
+                if (KernelTweaksUtils.setZramRecompAlgorithm(algo)) {
+                    recompPref.value = algo
+                    recompPref.summary = getString(R.string.zram_recomp_algorithm_summary, algo.uppercase())
+                } else {
+                    recompPref.value = algo
+                    recompPref.summary = getString(
+                        R.string.zram_recomp_algorithm_summary,
+                        getString(R.string.zram_recomp_algorithm_reboot_pending, algo.uppercase())
+                    )
+                    showRebootDialog(algo.uppercase())
+                }
+                true
+            }
+        }
+
+        recompressPref?.setOnPreferenceClickListener {
+            val success = KernelTweaksUtils.triggerZramRecompression()
+            val messageRes = if (success) {
+                R.string.zram_recompress_toast_success
+            } else {
+                R.string.zram_recompress_toast_failed
+            }
+            Toast.makeText(requireContext(), messageRes, Toast.LENGTH_SHORT).show()
+            true
+        }
+    }
+
+    private fun showRebootDialog(algo: String) {
+        val context = context ?: return
+        AlertDialog.Builder(context)
+            .setTitle(R.string.zram_reboot_dialog_title)
+            .setMessage(getString(R.string.zram_reboot_dialog_message, algo))
+            .setPositiveButton(R.string.zram_reboot_dialog_reboot_now) { _, _ ->
+                val pm = context.getSystemService(Context.POWER_SERVICE) as? PowerManager
+                pm?.reboot(null)
+            }
+            .setNegativeButton(R.string.zram_reboot_dialog_later, null)
+            .show()
+    }
+
     private fun updateSummaries() {
         val perAppPref = findPreference<Preference>(WakelockBlockerUtils.SECURE_KEY_WAKELOCK_BLOCKER_APPS)
         val isAppEnabled = WakelockBlockerUtils.isAppBlockerEnabled(requireContext())
@@ -121,6 +202,25 @@ class TweaksSettingsFragment : SettingsBasePreferenceFragment() {
             val current = KernelTweaksUtils.getCurrentTcpCongestion()
             tcpPref.value = current
             tcpPref.summary = formatTcpSummary(current)
+        }
+
+        val recompPref = findPreference<ListPreference>(KernelTweaksUtils.KEY_ZRAM_RECOMP_ALGORITHM)
+        if (recompPref != null) {
+            val current = KernelTweaksUtils.getCurrentZramRecompAlgorithm()
+            val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            val savedAlgo = prefs.getString(KernelTweaksUtils.KEY_ZRAM_RECOMP_ALGORITHM, null)
+
+            val displayAlgo = if (!savedAlgo.isNullOrBlank()) savedAlgo else current
+            recompPref.value = displayAlgo
+
+            if (!savedAlgo.isNullOrBlank() && !savedAlgo.equals(current, ignoreCase = true)) {
+                recompPref.summary = getString(
+                    R.string.zram_recomp_algorithm_summary,
+                    getString(R.string.zram_recomp_algorithm_reboot_pending, savedAlgo.uppercase())
+                )
+            } else {
+                recompPref.summary = getString(R.string.zram_recomp_algorithm_summary, current.uppercase())
+            }
         }
     }
 

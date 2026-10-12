@@ -18,4 +18,9 @@ r_dir_file(system_app, sysfs_wakeup)
 allow system_app proc_net:dir search;
 allow system_app proc_net:file rw_file_perms;
 
+# ZRAM
+allow system_app sysfs_zram:dir search;
+allow system_app sysfs_zram:file rw_file_perms;
+
+
 

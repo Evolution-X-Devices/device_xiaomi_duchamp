@@ -30,6 +30,12 @@ object KernelTweaksUtils {
     private const val NODE_TCP_CONGESTION_CONTROL = "/proc/sys/net/ipv4/tcp_congestion_control"
     private const val NODE_TCP_AVAILABLE_CONGESTION = "/proc/sys/net/ipv4/tcp_available_congestion_control"
 
+    // ZRAM
+    const val KEY_ZRAM_RECOMP_ALGORITHM = "zram_recomp_algorithm"
+    private const val NODE_ZRAM_COMP_ALGORITHM = "/sys/block/zram0/comp_algorithm"
+    private const val NODE_ZRAM_RECOMP_ALGORITHM = "/sys/block/zram0/recomp_algorithm"
+    private const val NODE_ZRAM_RECOMPRESS = "/sys/block/zram0/recompress"
+
     fun readNode(path: String): String? {
         val file = File(path)
         if (!file.exists() || !file.canRead()) {
@@ -79,6 +85,54 @@ object KernelTweaksUtils {
         val savedAlgo = prefs.getString(KEY_TCP_CONGESTION_CONTROL, null)
         if (!savedAlgo.isNullOrBlank()) {
             setTcpCongestion(savedAlgo)
+        }
+    }
+
+    fun isZramSupported(): Boolean {
+        return File(NODE_ZRAM_COMP_ALGORITHM).exists()
+    }
+
+    fun isZramRecompSupported(): Boolean {
+        return File(NODE_ZRAM_RECOMP_ALGORITHM).exists()
+    }
+
+    fun getAvailableZramAlgorithms(): List<String> {
+        val raw = readNode(NODE_ZRAM_COMP_ALGORITHM)
+        if (!raw.isNullOrBlank()) {
+            val list = raw.replace("[", "").replace("]", "")
+                .split("\\s+".toRegex())
+                .filter { it.isNotBlank() }
+                .distinct()
+            if (list.isNotEmpty()) return list
+        }
+        return listOf("zstd", "lz4", "lzo-rle", "lzo")
+    }
+
+    fun getCurrentZramRecompAlgorithm(): String {
+        val raw = readNode(NODE_ZRAM_RECOMP_ALGORITHM)
+        if (!raw.isNullOrBlank()) {
+            val match = Regex("\\[([^\\]]+)\\]").find(raw)
+            if (match != null) {
+                return match.groupValues[1]
+            }
+        }
+        return "zstd"
+    }
+
+    fun setZramRecompAlgorithm(algo: String): Boolean {
+        return writeNode(NODE_ZRAM_RECOMP_ALGORITHM, "algo=$algo priority=1")
+    }
+
+    fun triggerZramRecompression(): Boolean {
+        return writeNode(NODE_ZRAM_RECOMPRESS, "type=all")
+    }
+
+    fun syncZram(context: Context) {
+        if (!isZramRecompSupported()) return
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val savedAlgo = prefs.getString(KEY_ZRAM_RECOMP_ALGORITHM, null)
+        if (!savedAlgo.isNullOrBlank()) {
+            setZramRecompAlgorithm(savedAlgo)
         }
     }
 }

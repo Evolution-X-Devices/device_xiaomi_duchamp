@@ -49,6 +49,21 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="zram_category"
+        android:title="@string/zram_category_title">
+
+        <ListPreference
+            android:key="zram_recomp_algorithm"
+            android:title="@string/zram_recomp_algorithm_title" />
+
+        <Preference
+            android:key="zram_recompress"
+            android:title="@string/zram_recompress_title"
+            android:summary="@string/zram_recompress_summary" />
+
+    </PreferenceCategory>
+
     <com.android.settingslib.widget.FooterPreference
         android:key="tweaks_info"
         android:title="@string/tweaks_title" />
