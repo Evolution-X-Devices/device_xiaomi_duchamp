@@ -16,6 +16,7 @@ package com.xiaomi.settings.tweaks
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import com.android.settingslib.widget.SettingsBasePreferenceFragment
 import com.xiaomi.settings.PartsActivity
@@ -47,7 +48,46 @@ class TweaksSettingsFragment : SettingsBasePreferenceFragment() {
             true
         }
 
+        setupTcpCongestion()
         updateSummaries()
+    }
+
+    private fun setupTcpCongestion() {
+        val tcpPref = findPreference<ListPreference>(KernelTweaksUtils.KEY_TCP_CONGESTION_CONTROL) ?: return
+        val available = KernelTweaksUtils.getAvailableTcpCongestion()
+        val entries = available.map { algo ->
+            when (algo) {
+                "bbr3" -> getString(R.string.tcp_congestion_bbr3)
+                "cubic" -> getString(R.string.tcp_congestion_cubic)
+                "reno" -> getString(R.string.tcp_congestion_reno)
+                else -> algo.replaceFirstChar { it.uppercase() }
+            }
+        }.toTypedArray()
+        val entryValues = available.toTypedArray()
+
+        tcpPref.entries = entries
+        tcpPref.entryValues = entryValues
+
+        val current = KernelTweaksUtils.getCurrentTcpCongestion()
+        tcpPref.value = current
+        tcpPref.summary = formatTcpSummary(current)
+
+        tcpPref.setOnPreferenceChangeListener { _, newValue ->
+            val algo = newValue.toString()
+            KernelTweaksUtils.setTcpCongestion(algo)
+            tcpPref.summary = formatTcpSummary(algo)
+            true
+        }
+    }
+
+    private fun formatTcpSummary(algo: String): String {
+        val label = when (algo) {
+            "bbr3" -> getString(R.string.tcp_congestion_bbr3)
+            "cubic" -> getString(R.string.tcp_congestion_cubic)
+            "reno" -> getString(R.string.tcp_congestion_reno)
+            else -> algo.replaceFirstChar { it.uppercase() }
+        }
+        return getString(R.string.tcp_congestion_summary, label)
     }
 
     private fun updateSummaries() {
@@ -74,6 +114,13 @@ class TweaksSettingsFragment : SettingsBasePreferenceFragment() {
             getString(R.string.wakelock_blocker_kernel_count_with_hits, kernelCount, totalHits)
         } else {
             getString(R.string.wakelock_blocker_kernel_count, kernelCount)
+        }
+
+        val tcpPref = findPreference<ListPreference>(KernelTweaksUtils.KEY_TCP_CONGESTION_CONTROL)
+        if (tcpPref != null) {
+            val current = KernelTweaksUtils.getCurrentTcpCongestion()
+            tcpPref.value = current
+            tcpPref.summary = formatTcpSummary(current)
         }
     }
 

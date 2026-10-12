@@ -195,6 +195,12 @@
     <string name="kwl_pms_display_desc">Android Framework display power manager.</string>
     <string name="kwl_pms_broadcasts_desc">Android Framework system broadcast delivery.</string>
     <string name="kwl_generic_desc">Kernel hardware / driver wakeup source</string>
+    <string name="tcp_congestion_category_title">Network &amp; TCP</string>
+    <string name="tcp_congestion_title">TCP Congestion Control</string>
+    <string name="tcp_congestion_summary">%s</string>
+    <string name="tcp_congestion_bbr3">BBRv3 (Google Bottleneck Bandwidth and RTT)</string>
+    <string name="tcp_congestion_cubic">Cubic (Default Linux TCP)</string>
+    <string name="tcp_congestion_reno">Reno (Standard TCP)</string>
 
     <!-- Battery Settings -->
     <string name="battery_title">Set maximum charging current limits to preserve long-term battery health, and notification real-time battery statistics on your QS.</string>

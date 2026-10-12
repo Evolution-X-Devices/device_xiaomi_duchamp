@@ -14,3 +14,8 @@ allow system_app vendor_sysfs_wakelock_blocker:dir search;
 allow system_app vendor_sysfs_wakelock_blocker:file rw_file_perms;
 r_dir_file(system_app, sysfs_wakeup)
 
+# TCP
+allow system_app proc_net:dir search;
+allow system_app proc_net:file rw_file_perms;
+
+

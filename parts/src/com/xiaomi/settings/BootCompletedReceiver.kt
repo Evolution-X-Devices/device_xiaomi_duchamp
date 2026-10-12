@@ -61,6 +61,9 @@ class BootCompletedReceiver : BroadcastReceiver() {
         if (com.xiaomi.settings.tweaks.WakelockBlockerUtils.isEnabled(context)) {
             com.xiaomi.settings.tweaks.WakelockBlockerUtils.sync(context)
         }
+
+        // Kernel Tweaks
+        com.xiaomi.settings.tweaks.KernelTweaksUtils.syncTcpCongestion(context)
     }
 
     companion object {

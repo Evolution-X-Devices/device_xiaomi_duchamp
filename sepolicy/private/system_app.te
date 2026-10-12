@@ -4,3 +4,9 @@ allow system_app sysfs_devices_system_cpu:file rw_file_perms;
 
 # Thermals
 allow system_app sysfs_thermal:file rw_file_perms;
+
+# TCP
+allow system_app proc_net:dir search;
+allow system_app proc_net:file rw_file_perms;
+
+typeattribute system_app mlstrustedsubject;

@@ -39,6 +39,16 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="tcp_congestion_category"
+        android:title="@string/tcp_congestion_category_title">
+
+        <ListPreference
+            android:key="tcp_congestion_control"
+            android:title="@string/tcp_congestion_title" />
+
+    </PreferenceCategory>
+
     <com.android.settingslib.widget.FooterPreference
         android:key="tweaks_info"
         android:title="@string/tweaks_title" />
