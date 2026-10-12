@@ -75,6 +75,16 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="logging_category"
+        android:title="@string/logging_category_title">
+
+        <ListPreference
+            android:key="kernel_printk_level"
+            android:title="@string/kernel_printk_level_title" />
+
+    </PreferenceCategory>
+
     <com.android.settingslib.widget.FooterPreference
         android:key="tweaks_info"
         android:title="@string/tweaks_title" />

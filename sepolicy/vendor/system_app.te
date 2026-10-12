@@ -25,6 +25,10 @@ allow system_app sysfs_zram:file rw_file_perms;
 # Workqueue
 allow system_app vendor_sysfs_workqueue:file rw_file_perms;
 
+# Printk
+allow system_app vendor_proc_printk:file rw_file_perms;
+
+
 
 
 

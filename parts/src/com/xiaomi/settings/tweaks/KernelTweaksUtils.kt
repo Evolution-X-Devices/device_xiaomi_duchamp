@@ -40,6 +40,10 @@ object KernelTweaksUtils {
     const val KEY_WQ_POWER_EFFICIENT = "wq_power_efficient"
     private const val NODE_WQ_POWER_EFFICIENT = "/sys/module/workqueue/parameters/power_efficient"
 
+    // Kernel Log Level (Printk)
+    const val KEY_KERNEL_PRINTK_LEVEL = "kernel_printk_level"
+    private const val NODE_KERNEL_PRINTK = "/proc/sys/kernel/printk"
+
     fun readNode(path: String): String? {
         val file = File(path)
         if (!file.exists() || !file.canRead()) {
@@ -159,6 +163,34 @@ object KernelTweaksUtils {
         if (prefs.contains(KEY_WQ_POWER_EFFICIENT)) {
             val enabled = prefs.getBoolean(KEY_WQ_POWER_EFFICIENT, true)
             setWorkqueuePowerEfficient(enabled)
+        }
+    }
+
+    fun isPrintkSupported(): Boolean {
+        return File(NODE_KERNEL_PRINTK).exists()
+    }
+
+    fun getCurrentPrintkLevel(): String {
+        val raw = readNode(NODE_KERNEL_PRINTK)
+        if (!raw.isNullOrBlank()) {
+            val firstToken = raw.split("\\s+".toRegex()).firstOrNull()
+            if (firstToken != null) {
+                return firstToken
+            }
+        }
+        return "4"
+    }
+
+    fun setPrintkLevel(level: String): Boolean {
+        return writeNode(NODE_KERNEL_PRINTK, "$level 4 1 7")
+    }
+
+    fun syncPrintk(context: Context) {
+        if (!isPrintkSupported()) return
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val savedLevel = prefs.getString(KEY_KERNEL_PRINTK_LEVEL, null)
+        if (!savedLevel.isNullOrBlank()) {
+            setPrintkLevel(savedLevel)
         }
     }
 }

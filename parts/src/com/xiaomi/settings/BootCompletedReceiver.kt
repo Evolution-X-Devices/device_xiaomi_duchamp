@@ -66,6 +66,7 @@ class BootCompletedReceiver : BroadcastReceiver() {
         com.xiaomi.settings.tweaks.KernelTweaksUtils.syncTcpCongestion(context)
         com.xiaomi.settings.tweaks.KernelTweaksUtils.syncZram(context)
         com.xiaomi.settings.tweaks.KernelTweaksUtils.syncWorkqueue(context)
+        com.xiaomi.settings.tweaks.KernelTweaksUtils.syncPrintk(context)
     }
 
     companion object {

@@ -216,6 +216,12 @@
     <string name="wq_category_title">Scheduler &amp; Workqueues</string>
     <string name="wq_power_efficient_title">Power-efficient workqueues</string>
     <string name="wq_power_efficient_summary">Route unbound workqueues to energy-efficient CPU cores to reduce idle battery drain</string>
+    <string name="logging_category_title">Diagnostics &amp; Logging</string>
+    <string name="kernel_printk_level_title">Kernel Console Log Level</string>
+    <string name="kernel_printk_level_summary">%s</string>
+    <string name="kernel_printk_level_quiet">Quiet (Silences console logspam and reduces interrupts)</string>
+    <string name="kernel_printk_level_normal">Normal (Standard system warnings and errors)</string>
+    <string name="kernel_printk_level_verbose">Verbose / Debug (Full kernel console debugging)</string>
 
     <!-- Battery Settings -->
     <string name="battery_title">Set maximum charging current limits to preserve long-term battery health, and notification real-time battery statistics on your QS.</string>

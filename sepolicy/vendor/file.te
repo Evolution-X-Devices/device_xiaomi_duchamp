@@ -17,3 +17,7 @@ type vendor_sysfs_wakelock_blocker, fs_type, sysfs_type;
 # Workqueue
 type vendor_sysfs_workqueue, fs_type, sysfs_type;
 
+# Printk
+type vendor_proc_printk, fs_type, proc_type;
+
+

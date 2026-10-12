@@ -314,6 +314,10 @@ on boot
     chown system system /sys/module/workqueue/parameters/power_efficient
     chmod 0664 /sys/module/workqueue/parameters/power_efficient
 
+    # Kernel Console Log Level (printk)
+    chown system system /proc/sys/kernel/printk
+    chmod 0664 /proc/sys/kernel/printk
+
     # Power Manager
     write /sys/power/pm_freeze_timeout 2000
 

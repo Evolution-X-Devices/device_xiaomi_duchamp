@@ -67,3 +67,7 @@ genfscon sysfs /power/wakelock_blocker/total_hits                               
 # Workqueue
 genfscon sysfs /module/workqueue/parameters/power_efficient                                                  u:object_r:vendor_sysfs_workqueue:s0
 
+# Printk
+genfscon proc /sys/kernel/printk                                                                             u:object_r:vendor_proc_printk:s0
+
+

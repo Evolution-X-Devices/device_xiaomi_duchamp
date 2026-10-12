@@ -57,6 +57,7 @@ class TweaksSettingsFragment : SettingsBasePreferenceFragment() {
         setupTcpCongestion()
         setupZram()
         setupWorkqueue()
+        setupPrintk()
         updateSummaries()
     }
 
@@ -183,6 +184,43 @@ class TweaksSettingsFragment : SettingsBasePreferenceFragment() {
         }
     }
 
+    private fun setupPrintk() {
+        val printkPref = findPreference<ListPreference>(KernelTweaksUtils.KEY_KERNEL_PRINTK_LEVEL) ?: return
+        val entries = arrayOf(
+            getString(R.string.kernel_printk_level_quiet),
+            getString(R.string.kernel_printk_level_normal),
+            getString(R.string.kernel_printk_level_verbose)
+        )
+        val entryValues = arrayOf("0", "4", "7")
+
+        printkPref.entries = entries
+        printkPref.entryValues = entryValues
+
+        val current = KernelTweaksUtils.getCurrentPrintkLevel()
+        printkPref.value = current
+        printkPref.summary = formatPrintkSummary(current)
+
+        printkPref.setOnPreferenceChangeListener { _, newValue ->
+            val level = newValue.toString()
+            if (KernelTweaksUtils.setPrintkLevel(level)) {
+                printkPref.value = level
+                printkPref.summary = formatPrintkSummary(level)
+                true
+            } else {
+                false
+            }
+        }
+    }
+
+    private fun formatPrintkSummary(level: String): String {
+        val label = when (level) {
+            "0" -> getString(R.string.kernel_printk_level_quiet)
+            "7" -> getString(R.string.kernel_printk_level_verbose)
+            else -> getString(R.string.kernel_printk_level_normal)
+        }
+        return getString(R.string.kernel_printk_level_summary, label)
+    }
+
     private fun updateSummaries() {
         val perAppPref = findPreference<Preference>(WakelockBlockerUtils.SECURE_KEY_WAKELOCK_BLOCKER_APPS)
         val isAppEnabled = WakelockBlockerUtils.isAppBlockerEnabled(requireContext())
@@ -238,6 +276,13 @@ class TweaksSettingsFragment : SettingsBasePreferenceFragment() {
         val wqPref = findPreference<SwitchPreferenceCompat>(KernelTweaksUtils.KEY_WQ_POWER_EFFICIENT)
         if (wqPref != null) {
             wqPref.isChecked = KernelTweaksUtils.isWorkqueuePowerEfficient()
+        }
+
+        val printkPref = findPreference<ListPreference>(KernelTweaksUtils.KEY_KERNEL_PRINTK_LEVEL)
+        if (printkPref != null) {
+            val current = KernelTweaksUtils.getCurrentPrintkLevel()
+            printkPref.value = current
+            printkPref.summary = formatPrintkSummary(current)
         }
     }
 
