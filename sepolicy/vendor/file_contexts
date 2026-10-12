@@ -40,3 +40,6 @@
 
 # Thermal
 /(vendor|system/vendor)/bin/mi_thermald                                                                u:object_r:vendor_mi_thermald_exec:s0
+
+# Wakelock Blocker
+/sys/power/wakelock_blocker(/.*)?                                                                      u:object_r:vendor_sysfs_wakelock_blocker:s0

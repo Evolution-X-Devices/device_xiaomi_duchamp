@@ -14,7 +14,30 @@
 -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:settings="http://schemas.android.com/apk/res-auto"
+    android:key="tweaks_screen"
     android:title="@string/tweaks_button_title">
+
+    <com.android.settingslib.widget.LayoutPreference
+        android:key="tweaks_header"
+        android:layout="@layout/tweaks_header_card"
+        settings:allowDividerBelow="true" />
+
+    <PreferenceCategory
+        android:key="wakelock_blocker_category"
+        android:title="@string/wakelock_blocker_category_title">
+
+        <Preference
+            android:key="wakelock_blocker_apps"
+            android:title="@string/wakelock_blocker_per_app_title"
+            android:summary="@string/wakelock_blocker_per_app_summary" />
+
+        <Preference
+            android:key="wakelock_blocker_kernel"
+            android:title="@string/wakelock_blocker_kernel_title"
+            android:summary="@string/wakelock_blocker_kernel_summary" />
+
+    </PreferenceCategory>
 
     <com.android.settingslib.widget.FooterPreference
         android:key="tweaks_info"

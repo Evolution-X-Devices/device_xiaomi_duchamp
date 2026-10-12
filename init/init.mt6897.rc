@@ -302,6 +302,17 @@ on boot
     # Power Manager
     write /sys/power/pm_freeze_timeout 2000
 
+    # Wakelock Blocker
+    chown system system /sys/power/wakelock_blocker
+    chmod 0755 /sys/power/wakelock_blocker
+    chown system system /sys/power/wakelock_blocker/enabled
+    chown system system /sys/power/wakelock_blocker/list
+    chown system system /sys/power/wakelock_blocker/total_hits
+    chmod 0664 /sys/power/wakelock_blocker/enabled
+    chmod 0664 /sys/power/wakelock_blocker/list
+    chmod 0664 /sys/power/wakelock_blocker/total_hits
+    restorecon_recursive /sys/power/wakelock_blocker
+
     # USB
     mkdir /config/usb_gadget/g1/functions/mass_storage.0
 

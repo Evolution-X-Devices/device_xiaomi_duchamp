@@ -8,3 +8,9 @@ allow system_app sysfs_therm:file rw_file_perms;
 # HTSR
 allow system_app vendor_sysfs_touch:dir search;
 allow system_app vendor_sysfs_touch:file rw_file_perms;
+
+# Wakelock Blocker
+allow system_app vendor_sysfs_wakelock_blocker:dir search;
+allow system_app vendor_sysfs_wakelock_blocker:file rw_file_perms;
+r_dir_file(system_app, sysfs_wakeup)
+

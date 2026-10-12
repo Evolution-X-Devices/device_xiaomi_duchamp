@@ -56,6 +56,11 @@ class BootCompletedReceiver : BroadcastReceiver() {
         if (prefs.getBoolean("thermal_auto_mode", false)) {
             com.xiaomi.settings.thermal.ThermalService.startService(context)
         }
+
+        // Wakelock Blocker
+        if (com.xiaomi.settings.tweaks.WakelockBlockerUtils.isEnabled(context)) {
+            com.xiaomi.settings.tweaks.WakelockBlockerUtils.sync(context)
+        }
     }
 
     companion object {

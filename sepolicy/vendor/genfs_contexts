@@ -57,3 +57,9 @@ genfscon sysfs /devices/platform/soc/1cc04000.spmi/spmi-0/0-09/mt6685-rtc/wakeup
 genfscon sysfs /devices/platform/soc/1e000000.adspsys/wakeup                                                            u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/soc/1f800000.mmlsys-config/wakeup                                                      u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/virtual/power_supply/mtk-gauge/wakeup                                                           u:object_r:sysfs_wakeup:s0
+
+# Wakelock Blocker
+genfscon sysfs /power/wakelock_blocker                                                                       u:object_r:vendor_sysfs_wakelock_blocker:s0
+genfscon sysfs /power/wakelock_blocker/enabled                                                               u:object_r:vendor_sysfs_wakelock_blocker:s0
+genfscon sysfs /power/wakelock_blocker/list                                                                  u:object_r:vendor_sysfs_wakelock_blocker:s0
+genfscon sysfs /power/wakelock_blocker/total_hits                                                             u:object_r:vendor_sysfs_wakelock_blocker:s0
