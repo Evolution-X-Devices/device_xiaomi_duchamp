@@ -36,6 +36,10 @@ object KernelTweaksUtils {
     private const val NODE_ZRAM_RECOMP_ALGORITHM = "/sys/block/zram0/recomp_algorithm"
     private const val NODE_ZRAM_RECOMPRESS = "/sys/block/zram0/recompress"
 
+    // Power-Efficient Workqueues
+    const val KEY_WQ_POWER_EFFICIENT = "wq_power_efficient"
+    private const val NODE_WQ_POWER_EFFICIENT = "/sys/module/workqueue/parameters/power_efficient"
+
     fun readNode(path: String): String? {
         val file = File(path)
         if (!file.exists() || !file.canRead()) {
@@ -133,6 +137,28 @@ object KernelTweaksUtils {
         val savedAlgo = prefs.getString(KEY_ZRAM_RECOMP_ALGORITHM, null)
         if (!savedAlgo.isNullOrBlank()) {
             setZramRecompAlgorithm(savedAlgo)
+        }
+    }
+
+    fun isWorkqueuePowerEfficientSupported(): Boolean {
+        return File(NODE_WQ_POWER_EFFICIENT).exists()
+    }
+
+    fun isWorkqueuePowerEfficient(): Boolean {
+        val raw = readNode(NODE_WQ_POWER_EFFICIENT)
+        return raw.equals("Y", ignoreCase = true) || raw == "1"
+    }
+
+    fun setWorkqueuePowerEfficient(enabled: Boolean): Boolean {
+        return writeNode(NODE_WQ_POWER_EFFICIENT, if (enabled) "Y" else "N")
+    }
+
+    fun syncWorkqueue(context: Context) {
+        if (!isWorkqueuePowerEfficientSupported()) return
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        if (prefs.contains(KEY_WQ_POWER_EFFICIENT)) {
+            val enabled = prefs.getBoolean(KEY_WQ_POWER_EFFICIENT, true)
+            setWorkqueuePowerEfficient(enabled)
         }
     }
 }

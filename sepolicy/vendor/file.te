@@ -13,3 +13,7 @@ type vendor_sysfs_touch, fs_type, sysfs_type;
 
 # Wakelock Blocker
 type vendor_sysfs_wakelock_blocker, fs_type, sysfs_type;
+
+# Workqueue
+type vendor_sysfs_workqueue, fs_type, sysfs_type;
+

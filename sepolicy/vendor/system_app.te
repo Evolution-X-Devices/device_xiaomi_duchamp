@@ -22,5 +22,9 @@ allow system_app proc_net:file rw_file_perms;
 allow system_app sysfs_zram:dir search;
 allow system_app sysfs_zram:file rw_file_perms;
 
+# Workqueue
+allow system_app vendor_sysfs_workqueue:file rw_file_perms;
+
+
 
 

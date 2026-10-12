@@ -310,6 +310,10 @@ on boot
     chmod 0664 /sys/block/zram0/recomp_algorithm
     chmod 0664 /sys/block/zram0/recompress
 
+    # Power-Efficient Workqueues
+    chown system system /sys/module/workqueue/parameters/power_efficient
+    chmod 0664 /sys/module/workqueue/parameters/power_efficient
+
     # Power Manager
     write /sys/power/pm_freeze_timeout 2000
 

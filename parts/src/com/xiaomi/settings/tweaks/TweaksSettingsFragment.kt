@@ -23,6 +23,7 @@ import android.widget.Toast
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceManager
+import androidx.preference.SwitchPreferenceCompat
 import com.android.settingslib.widget.SettingsBasePreferenceFragment
 import com.xiaomi.settings.PartsActivity
 import com.xiaomi.settings.R
@@ -55,6 +56,7 @@ class TweaksSettingsFragment : SettingsBasePreferenceFragment() {
 
         setupTcpCongestion()
         setupZram()
+        setupWorkqueue()
         updateSummaries()
     }
 
@@ -171,6 +173,16 @@ class TweaksSettingsFragment : SettingsBasePreferenceFragment() {
             .show()
     }
 
+    private fun setupWorkqueue() {
+        val wqPref = findPreference<SwitchPreferenceCompat>(KernelTweaksUtils.KEY_WQ_POWER_EFFICIENT) ?: return
+        wqPref.isChecked = KernelTweaksUtils.isWorkqueuePowerEfficient()
+        wqPref.setOnPreferenceChangeListener { _, newValue ->
+            val enabled = newValue as Boolean
+            KernelTweaksUtils.setWorkqueuePowerEfficient(enabled)
+            true
+        }
+    }
+
     private fun updateSummaries() {
         val perAppPref = findPreference<Preference>(WakelockBlockerUtils.SECURE_KEY_WAKELOCK_BLOCKER_APPS)
         val isAppEnabled = WakelockBlockerUtils.isAppBlockerEnabled(requireContext())
@@ -221,6 +233,11 @@ class TweaksSettingsFragment : SettingsBasePreferenceFragment() {
             } else {
                 recompPref.summary = getString(R.string.zram_recomp_algorithm_summary, current.uppercase())
             }
+        }
+
+        val wqPref = findPreference<SwitchPreferenceCompat>(KernelTweaksUtils.KEY_WQ_POWER_EFFICIENT)
+        if (wqPref != null) {
+            wqPref.isChecked = KernelTweaksUtils.isWorkqueuePowerEfficient()
         }
     }
 

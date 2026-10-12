@@ -213,7 +213,11 @@
     <string name="zram_reboot_dialog_message">Pages in ZRAM are currently compressed with the active algorithm. Restart your device to apply %s.</string>
     <string name="zram_reboot_dialog_reboot_now">Restart now</string>
     <string name="zram_reboot_dialog_later">Later</string>
+    <string name="wq_category_title">Scheduler &amp; Workqueues</string>
+    <string name="wq_power_efficient_title">Power-efficient workqueues</string>
+    <string name="wq_power_efficient_summary">Route unbound workqueues to energy-efficient CPU cores to reduce idle battery drain</string>
 
     <!-- Battery Settings -->
     <string name="battery_title">Set maximum charging current limits to preserve long-term battery health, and notification real-time battery statistics on your QS.</string>
+
 </resources>

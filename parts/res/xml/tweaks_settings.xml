@@ -64,6 +64,17 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="wq_category"
+        android:title="@string/wq_category_title">
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="wq_power_efficient"
+            android:title="@string/wq_power_efficient_title"
+            android:summary="@string/wq_power_efficient_summary" />
+
+    </PreferenceCategory>
+
     <com.android.settingslib.widget.FooterPreference
         android:key="tweaks_info"
         android:title="@string/tweaks_title" />
