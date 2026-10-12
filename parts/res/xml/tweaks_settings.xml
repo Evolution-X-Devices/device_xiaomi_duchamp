@@ -85,6 +85,17 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="ntsync_category"
+        android:title="@string/ntsync_category_title">
+
+        <Preference
+            android:key="ntsync_driver_status"
+            android:title="@string/ntsync_driver_title"
+            android:selectable="false" />
+
+    </PreferenceCategory>
+
     <com.android.settingslib.widget.FooterPreference
         android:key="tweaks_info"
         android:title="@string/tweaks_title" />

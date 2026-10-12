@@ -58,6 +58,7 @@ class TweaksSettingsFragment : SettingsBasePreferenceFragment() {
         setupZram()
         setupWorkqueue()
         setupPrintk()
+        setupNtsync()
         updateSummaries()
     }
 
@@ -221,6 +222,16 @@ class TweaksSettingsFragment : SettingsBasePreferenceFragment() {
         return getString(R.string.kernel_printk_level_summary, label)
     }
 
+    private fun setupNtsync() {
+        val ntsyncPref = findPreference<Preference>("ntsync_driver_status") ?: return
+        val isSupported = KernelTweaksUtils.isNtsyncSupported()
+        ntsyncPref.summary = if (isSupported) {
+            getString(R.string.ntsync_driver_active)
+        } else {
+            getString(R.string.ntsync_driver_not_detected)
+        }
+    }
+
     private fun updateSummaries() {
         val perAppPref = findPreference<Preference>(WakelockBlockerUtils.SECURE_KEY_WAKELOCK_BLOCKER_APPS)
         val isAppEnabled = WakelockBlockerUtils.isAppBlockerEnabled(requireContext())
@@ -283,6 +294,16 @@ class TweaksSettingsFragment : SettingsBasePreferenceFragment() {
             val current = KernelTweaksUtils.getCurrentPrintkLevel()
             printkPref.value = current
             printkPref.summary = formatPrintkSummary(current)
+        }
+
+        val ntsyncPref = findPreference<Preference>("ntsync_driver_status")
+        if (ntsyncPref != null) {
+            val isSupported = KernelTweaksUtils.isNtsyncSupported()
+            ntsyncPref.summary = if (isSupported) {
+                getString(R.string.ntsync_driver_active)
+            } else {
+                getString(R.string.ntsync_driver_not_detected)
+            }
         }
     }
 

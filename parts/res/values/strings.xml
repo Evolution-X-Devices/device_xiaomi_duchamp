@@ -222,6 +222,10 @@
     <string name="kernel_printk_level_quiet">Quiet (Silences console logspam and reduces interrupts)</string>
     <string name="kernel_printk_level_normal">Normal (Standard system warnings and errors)</string>
     <string name="kernel_printk_level_verbose">Verbose / Debug (Full kernel console debugging)</string>
+    <string name="ntsync_category_title">Gaming &amp; Emulation</string>
+    <string name="ntsync_driver_title">NTSync Driver</string>
+    <string name="ntsync_driver_active">Active (/dev/ntsync available for Wine / Proton)</string>
+    <string name="ntsync_driver_not_detected">Not detected (/dev/ntsync)</string>
 
     <!-- Battery Settings -->
     <string name="battery_title">Set maximum charging current limits to preserve long-term battery health, and notification real-time battery statistics on your QS.</string>

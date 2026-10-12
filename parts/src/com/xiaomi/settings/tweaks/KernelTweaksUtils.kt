@@ -44,6 +44,9 @@ object KernelTweaksUtils {
     const val KEY_KERNEL_PRINTK_LEVEL = "kernel_printk_level"
     private const val NODE_KERNEL_PRINTK = "/proc/sys/kernel/printk"
 
+    // NTSync
+    private const val NODE_NTSYNC = "/dev/ntsync"
+
     fun readNode(path: String): String? {
         val file = File(path)
         if (!file.exists() || !file.canRead()) {
@@ -192,5 +195,9 @@ object KernelTweaksUtils {
         if (!savedLevel.isNullOrBlank()) {
             setPrintkLevel(savedLevel)
         }
+    }
+
+    fun isNtsyncSupported(): Boolean {
+        return File(NODE_NTSYNC).exists()
     }
 }

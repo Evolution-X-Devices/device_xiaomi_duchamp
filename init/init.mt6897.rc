@@ -318,6 +318,9 @@ on boot
     chown system system /proc/sys/kernel/printk
     chmod 0664 /proc/sys/kernel/printk
 
+    # NTSync
+    chmod 0666 /dev/ntsync
+
     # Power Manager
     write /sys/power/pm_freeze_timeout 2000
 
