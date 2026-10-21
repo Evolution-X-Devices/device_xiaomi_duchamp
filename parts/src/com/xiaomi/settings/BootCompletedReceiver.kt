@@ -67,6 +67,13 @@ class BootCompletedReceiver : BroadcastReceiver() {
         com.xiaomi.settings.tweaks.KernelTweaksUtils.syncZram(context)
         com.xiaomi.settings.tweaks.KernelTweaksUtils.syncWorkqueue(context)
         com.xiaomi.settings.tweaks.KernelTweaksUtils.syncPrintk(context)
+
+        // Battery
+        com.xiaomi.settings.battery.BatteryUtils.syncOnBoot(context)
+        val smartLimit = (prefs.getString(com.xiaomi.settings.battery.BatteryUtils.PREF_SMART_CHARGE_LIMIT, "0") ?: "0").toIntOrNull() ?: 0
+        if (smartLimit > 0) {
+            com.xiaomi.settings.battery.BatteryService.startService(context)
+        }
     }
 
     companion object {

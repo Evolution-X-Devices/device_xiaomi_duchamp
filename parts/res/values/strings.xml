@@ -228,6 +228,37 @@
     <string name="ntsync_driver_not_detected">Not detected (/dev/ntsync)</string>
 
     <!-- Battery Settings -->
-    <string name="battery_title">Set maximum charging current limits to preserve long-term battery health, and notification real-time battery statistics on your QS.</string>
+    <string name="battery_title">Battery Settings</string>
+    <string name="battery_category_charging">Charging Speed</string>
+    <string name="charging_speed_title">Charging speed limit</string>
+    <string name="charging_speed_summary">Current charging speed limit: %s</string>
+    <string name="charging_speed_disabled_summary">Speed limit disabled while bypass charging is active</string>
+    <string name="charging_speed_67w">67W (Default / Turbo)</string>
+    <string name="charging_speed_33w">33W (Moderate)</string>
+    <string name="charging_speed_18w">18W (Standard)</string>
+    <string name="battery_category_bypass">Bypass Charging</string>
+    <string name="bypass_charging_title">Bypass charging</string>
+    <string name="bypass_charging_summary">Power the motherboard directly from the charger without charging the battery. Reduces heat and wear during gaming.</string>
+    <string name="bypass_charger_required_toast">Connect charger to enable bypass charging</string>
+    <string name="battery_category_protection">Smart Protection</string>
+    <string name="smart_charge_limit_title">Smart charging limit</string>
+    <string name="smart_charge_limit_summary">Automatically switch to bypass charging when reaching the target level: %s</string>
+    <string name="smart_charge_limit_off">Disabled</string>
+    <string name="smart_charge_limit_80" formatted="false">80%</string>
+    <string name="smart_charge_limit_85" formatted="false">85%</string>
+    <string name="smart_charge_limit_90" formatted="false">90%</string>
+    <string name="battery_category_calibration">Battery Calibration</string>
+    <string name="battery_calibration_title">Reset battery fuel gauge</string>
+    <string name="battery_calibration_summary">Reset Coulomb counter and recalculate OCV capacity to fix percent freezing or jumping</string>
+    <string name="battery_calibration_dialog_title">Calibrate Battery Gauge?</string>
+    <string name="battery_calibration_dialog_message">It is strongly recommended to perform calibration ONLY when the battery is at 100% and disconnected from the charger, or when device is at rest.\n\nDo you want to reset the battery fuel gauge now?</string>
+    <string name="battery_calibration_dialog_confirm">Reset</string>
+    <string name="battery_calibration_toast_success">Battery fuel gauge reset successfully</string>
+    <string name="battery_calibration_toast_failed">Failed to reset battery fuel gauge</string>
+    <string name="bypass_notification_channel_name">Bypass Charging</string>
+    <string name="bypass_notification_title">Bypass charging active</string>
+    <string name="bypass_notification_text">Device is powered directly from charger</string>
+    <string name="bypass_notification_action_stop">Turn off</string>
+    <string name="bypass_tile_label">Bypass Charging</string>
 
 </resources>

@@ -102,10 +102,10 @@ class PartsActivity : CollapsingToolbarBaseActivity(),
     }
 
     companion object {
-        private const val EXTRA_SHOW_FRAGMENT = ":settings:show_fragment"
-        private const val EXTRA_SHOW_FRAGMENT_TITLE = ":settings:show_fragment_title"
-        private const val EXTRA_SHOW_FRAGMENT_TITLE_RESID = ":settings:show_fragment_title_resid"
-        private const val EXTRA_SHOW_FRAGMENT_ARGS = ":settings:show_fragment_args"
+        const val EXTRA_SHOW_FRAGMENT = ":settings:show_fragment"
+        const val EXTRA_SHOW_FRAGMENT_TITLE = ":settings:show_fragment_title"
+        const val EXTRA_SHOW_FRAGMENT_TITLE_RESID = ":settings:show_fragment_title_resid"
+        const val EXTRA_SHOW_FRAGMENT_ARGS = ":settings:show_fragment_args"
     }
 }
 

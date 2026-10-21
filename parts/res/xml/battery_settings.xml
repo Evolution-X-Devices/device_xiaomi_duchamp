@@ -14,7 +14,53 @@
 -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="battery_settings_screen"
     android:title="@string/battery_button_title">
+
+    <PreferenceCategory
+        android:key="battery_category_charging"
+        android:title="@string/battery_category_charging">
+
+        <ListPreference
+            android:key="charging_speed"
+            android:title="@string/charging_speed_title"
+            android:defaultValue="22000000" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="battery_category_bypass"
+        android:title="@string/battery_category_bypass">
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:key="bypass_charging"
+            android:title="@string/bypass_charging_title"
+            android:summary="@string/bypass_charging_summary"
+            android:defaultValue="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="battery_category_protection"
+        android:title="@string/battery_category_protection">
+
+        <ListPreference
+            android:key="smart_charge_limit"
+            android:title="@string/smart_charge_limit_title"
+            android:defaultValue="0" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="battery_category_calibration"
+        android:title="@string/battery_category_calibration">
+
+        <Preference
+            android:key="battery_calibration"
+            android:title="@string/battery_calibration_title"
+            android:summary="@string/battery_calibration_summary" />
+
+    </PreferenceCategory>
 
     <com.android.settingslib.widget.FooterPreference
         android:key="battery_info"

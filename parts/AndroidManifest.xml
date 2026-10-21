@@ -89,6 +89,33 @@
             </intent-filter>
         </service>
         <service android:name=".htsr.HTSRService" android:exported="false" />
+
+        <!-- Battery -->
+        <receiver
+            android:name=".battery.BatteryReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+                <action android:name="android.intent.action.BATTERY_CHANGED" />
+                <action android:name="com.xiaomi.settings.battery.ACTION_STOP_BYPASS" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".battery.BypassChargeTileService"
+            android:icon="@drawable/ic_bypass_charging"
+            android:label="@string/bypass_tile_label"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".battery.BatteryService"
+            android:exported="false" />
     </application>
 </manifest>
 

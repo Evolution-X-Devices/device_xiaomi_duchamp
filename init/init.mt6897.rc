@@ -321,6 +321,12 @@ on boot
     # NTSync
     chmod 0666 /dev/ntsync
 
+    # Battery Settings
+    chown system system /sys/class/power_supply/battery/constant_charge_current
+    chmod 0664 /sys/class/power_supply/battery/constant_charge_current
+    chown system system /sys/class/power_supply/battery/reset
+    chmod 0664 /sys/class/power_supply/battery/reset
+
     # Power Manager
     write /sys/power/pm_freeze_timeout 2000
 

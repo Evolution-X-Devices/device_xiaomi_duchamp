@@ -20,4 +20,7 @@ type vendor_sysfs_workqueue, fs_type, sysfs_type;
 # Printk
 type vendor_proc_printk, fs_type, proc_type;
 
+# Battery
+type vendor_sysfs_battery_supply, fs_type, sysfs_type;
+
 
