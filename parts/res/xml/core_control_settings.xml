@@ -14,7 +14,14 @@
 -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:settings="http://schemas.android.com/apk/res-auto"
+    android:key="core_control_screen"
     android:title="@string/core_control_button_title">
+
+    <com.android.settingslib.widget.LayoutPreference
+        android:key="core_control_header"
+        android:layout="@layout/core_control_header_card"
+        settings:allowDividerBelow="true" />
 
     <com.android.settingslib.widget.MainSwitchPreference
         android:key="core_control_switch"
