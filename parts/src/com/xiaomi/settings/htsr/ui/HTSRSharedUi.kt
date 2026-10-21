@@ -7,7 +7,7 @@
  *   |_|  |_|  |_|   \___/ \___/    /_/  /_/ /_/   \_\
  *
  *  SPDX-FileCopyrightText: 2024 The Evolution X Project
- *  SPDX-FileCopyRightText: 2026 MT6897A
+ *  SPDX-FileCopyrightText: 2026 MT6897A
  *  SPDX-License-Identifier: Apache-2.0
  * ==============================================================
  */

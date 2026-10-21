@@ -6,8 +6,8 @@
  *   | |  | |  | |  | (_) | (_) | \__, |  / / / ___ \
  *   |_|  |_|  |_|   \___/ \___/    /_/  /_/ /_/   \_\
  *
- *  SPDX-FileCopyRightText: 2024 Paranoid Android
- *  SPDX-FileCopyRightText: 2026 MT6897A
+ *  SPDX-FileCopyrightText: 2024 Paranoid Android
+ *  SPDX-FileCopyrightText: 2026 MT6897A
  *  SPDX-License-Identifier: Apache-2.0
  * ==============================================================
  */
