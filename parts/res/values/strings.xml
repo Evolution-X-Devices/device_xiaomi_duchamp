@@ -299,4 +299,27 @@
     <string name="bypass_notification_action_stop">Turn off</string>
     <string name="bypass_tile_label">Bypass Charging</string>
 
+    <!-- Debug Settings -->
+    <string name="parts_debug_button_title">Debug Information</string>
+    <string name="parts_debug_button_summary">Hardware sysfs node values and component state</string>
+    <string name="parts_debug_unlocked_toast">Debug Information unlocked</string>
+    <string name="parts_debug_countdown_toast">Tap %1$d more times to open Debug Information</string>
+    <string name="parts_debug_locked_toast">Debug Information menu hidden</string>
+    <string name="parts_debug_refresh_title">Refresh Values</string>
+    <string name="parts_debug_refresh_summary">Re-read all hardware nodes and preferences</string>
+    <string name="parts_debug_refresh_toast">Hardware values refreshed</string>
+    <string name="parts_debug_lock_title">Hide Debug Menu</string>
+    <string name="parts_debug_lock_summary">Remove Debug Information from the main menu</string>
+    <string name="parts_debug_lock_confirm_message">Hide Debug Information from the main Xiaomi Settings menu? You can unlock it again by tapping the footer 5 times.</string>
+    <string name="parts_debug_lock_action">Hide</string>
+    <string name="parts_debug_copy_action">Copy</string>
+    <string name="parts_debug_copied_toast">Copied to clipboard</string>
+    <string name="debug_cat_general">Actions</string>
+    <string name="debug_cat_thermal">Thermal Management</string>
+    <string name="debug_cat_core">Core Control</string>
+    <string name="debug_cat_htsr">High Touch Sample Rate (HTSR)</string>
+    <string name="debug_cat_battery">Battery &amp; Charging</string>
+    <string name="debug_cat_wakelock">Wakelock Blocker</string>
+    <string name="debug_cat_tweaks">Kernel Tweaks</string>
+
 </resources>

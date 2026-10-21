@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ ==============================================================
+    __  __  _____   __    ___    ___   _____   _
+   |  \/  ||_   _| / /_  ( _ )  / _ \ |___  | / \
+   | |\/| |  | |  | '_ \ / _ \ | (_) |   / / / _ \
+   | |  | |  | |  | (_) | (_) | \__, |  / / / ___ \
+   |_|  |_|  |_|   \___/ \___/    /_/  /_/ /_/   \_\
+
+  SPDX-FileCopyRightText: The LineageOS Project
+  SPDX-FileCopyRightText: 2026 MT6897A
+  SPDX-License-Identifier: Apache-2.0
+ ==============================================================
+-->
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:settings="http://schemas.android.com/apk/res-auto"
+    android:key="debug_settings_screen"
+    android:title="@string/parts_debug_button_title">
+
+    <PreferenceCategory
+        android:key="debug_cat_actions"
+        android:title="@string/debug_cat_general">
+
+        <Preference
+            android:key="debug_action_refresh"
+            android:title="@string/parts_debug_refresh_title"
+            android:summary="@string/parts_debug_refresh_summary"
+            android:icon="@drawable/ic_tweaks" />
+
+        <Preference
+            android:key="debug_action_lock"
+            android:title="@string/parts_debug_lock_title"
+            android:summary="@string/parts_debug_lock_summary"
+            android:icon="@drawable/ic_debug" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="debug_cat_thermal"
+        android:title="@string/debug_cat_thermal">
+
+        <Preference
+            android:key="debug_thermal_sconfig"
+            android:title="thermal_message/sconfig" />
+
+        <Preference
+            android:key="debug_thermal_prefs"
+            android:title="Thermal Configuration" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="debug_cat_core"
+        android:title="@string/debug_cat_core">
+
+        <Preference
+            android:key="debug_core_online"
+            android:title="CPU Cores Online (cpu0..7)" />
+
+        <Preference
+            android:key="debug_core_prefs"
+            android:title="Core Control Configuration" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="debug_cat_htsr"
+        android:title="@string/debug_cat_htsr">
+
+        <Preference
+            android:key="debug_htsr_node"
+            android:title="bump_sample_rate" />
+
+        <Preference
+            android:key="debug_htsr_prefs"
+            android:title="HTSR Configuration &amp; Apps" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="debug_cat_battery"
+        android:title="@string/debug_cat_battery">
+
+        <Preference
+            android:key="debug_battery_current"
+            android:title="constant_charge_current" />
+
+        <Preference
+            android:key="debug_battery_bypass"
+            android:title="mtk_battery_cmd/current_cmd" />
+
+        <Preference
+            android:key="debug_battery_status"
+            android:title="Battery Hardware Status" />
+
+        <Preference
+            android:key="debug_battery_prefs"
+            android:title="Battery Configuration" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="debug_cat_wakelock"
+        android:title="@string/debug_cat_wakelock">
+
+        <Preference
+            android:key="debug_wakelock_enabled"
+            android:title="wakelock_blocker/enabled" />
+
+        <Preference
+            android:key="debug_wakelock_list"
+            android:title="wakelock_blocker/list" />
+
+        <Preference
+            android:key="debug_wakelock_prefs"
+            android:title="Wakelock Blocker Configuration" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="debug_cat_tweaks"
+        android:title="@string/debug_cat_tweaks">
+
+        <Preference
+            android:key="debug_tweak_tcp"
+            android:title="TCP Congestion Control" />
+
+        <Preference
+            android:key="debug_tweak_zram"
+            android:title="ZRAM Comp / Recomp" />
+
+        <Preference
+            android:key="debug_tweak_wq"
+            android:title="Power-Efficient Workqueue" />
+
+        <Preference
+            android:key="debug_tweak_printk"
+            android:title="Kernel Printk Level" />
+
+        <Preference
+            android:key="debug_tweak_ntsync"
+            android:title="NTSync Driver (/dev/ntsync)" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

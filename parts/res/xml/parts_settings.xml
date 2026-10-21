@@ -61,6 +61,13 @@
             android:icon="@drawable/ic_battery"
             android:fragment="com.xiaomi.settings.battery.BatterySettingsFragment" />
 
+        <Preference
+            android:key="debug_info"
+            android:title="@string/parts_debug_button_title"
+            android:summary="@string/parts_debug_button_summary"
+            android:icon="@drawable/ic_debug"
+            android:fragment="com.xiaomi.settings.debug.DebugSettingsFragment" />
+
     </PreferenceCategory>
 
     <com.android.settingslib.widget.FooterPreference
