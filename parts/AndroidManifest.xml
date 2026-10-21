@@ -90,6 +90,17 @@
         </service>
         <service android:name=".htsr.HTSRService" android:exported="false" />
 
+        <service
+            android:name=".htsr.HTSRTileService"
+            android:icon="@drawable/ic_htsr"
+            android:label="@string/htsr_tile_label"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
         <!-- Battery -->
         <receiver
             android:name=".battery.BatteryReceiver"

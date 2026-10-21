@@ -86,6 +86,9 @@
     <string name="common_system_badge">System</string>
     <string name="common_clear_search">Clear search</string>
     <string name="action_search_apps">Search apps</string>
+    <string name="htsr_tile_label">High Touch Sample Rate</string>
+    <string name="htsr_tile_active">Enabled</string>
+    <string name="htsr_tile_inactive">Disabled</string>
 
     <!-- Kernel Tweaks -->
     <string name="tweaks_title">Advanced kernel tuning. Disable unnecessary wake-locks and debugging logs to minimize background drain and extend deep sleep.</string>

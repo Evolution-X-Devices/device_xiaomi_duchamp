@@ -39,6 +39,9 @@ class HTSRService : Service() {
         when (key) {
             "htsr_global_enable", "htsr_enable" -> {
                 updateSettings()
+                if (key == "htsr_global_enable") {
+                    HTSRTileService.updateTile(this)
+                }
             }
         }
     }
@@ -114,6 +117,15 @@ class HTSRService : Service() {
             writeNode("1")
         } else if (!isPerAppEnabled) {
             writeNode("0")
+        } else {
+            val am = getSystemService(ActivityManager::class.java)
+            val topPackage = try {
+                am?.getRunningTasks(1)?.firstOrNull()?.topActivity?.packageName
+            } catch (_: Exception) {
+                null
+            }
+            val shouldEnable = topPackage != null && topPackage in htsrApps
+            writeNode(if (shouldEnable) "1" else "0")
         }
     }
     

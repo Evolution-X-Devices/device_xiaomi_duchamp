@@ -42,6 +42,7 @@ class HTSRSettingsFragment : SettingsBasePreferenceFragment() {
             val isGlobal = newValue as Boolean
             updatePerAppState(isGlobal)
             HTSRService.startService(requireContext())
+            HTSRTileService.updateTile(requireContext())
             true
         }
 
