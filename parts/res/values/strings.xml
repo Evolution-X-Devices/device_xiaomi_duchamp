@@ -29,9 +29,9 @@
     <string name="freq_control_button_title">Frequency Control</string>
     <string name="freq_control_button_summary">Tune CPU and GPU clock speeds</string>
     <string name="tweaks_button_title">Kernel Tweaks</string>
-    <string name="tweaks_button_summary">Manage system wakelocks and logging</string>
+    <string name="tweaks_button_summary">Manage system wakelocks, logging, tcp and more.</string>
     <string name="battery_button_title">Battery settings</string>
-    <string name="battery_button_summary">Manage charging limits and battery notification</string>
+    <string name="battery_button_summary">Manage charging limits and bypass charging</string>
     <string name="parts_footer_title">Xiaomi Settings provides advanced device-specific hardware controls to optimize performance, battery life, and overall user experience.</string>
 
     <!-- Thermals -->
@@ -45,7 +45,7 @@
     <string name="thermal_profile_danger">Danger</string>
     <string name="thermal_danger_notification_title">Danger profile enabled.</string>
     <string name="thermal_notification_channel_name">Xiaomi Parts</string>
-    <string name="thermal_danger_toast">WARNING: Danger profile is enabled, it has no thermal limits, so overheating or device breakdown may occur.\n\nUse with caution.</string>
+    <string name="thermal_danger_toast">WARNING: Danger profile is enabled, it has no thermal limits, so overheating or device breakdown may occur. Use with caution.</string>
     <string name="thermal_profile_unknown">Unknown</string>
     <string name="thermal_auto_mode_title">Enable Auto Mode</string>
     <string name="thermal_auto_mode_summary">Automatically apply the Battery Saver profile when the screen is off.</string>
@@ -91,7 +91,7 @@
     <string name="htsr_tile_inactive">Disabled</string>
 
     <!-- Kernel Tweaks -->
-    <string name="tweaks_title">Advanced kernel tuning. Disable unnecessary wake-locks and debugging logs to minimize background drain and extend deep sleep.</string>
+    <string name="tweaks_title">Advanced kernel tuning. Disable unnecessary wake-locks, logs, tcp and more to enchance your experience.</string>
     <string name="wakelock_blocker_category_title">Wakelock Blocker</string>
     <string name="wakelock_blocker_enable_title">Enable App Wakelock Blocker</string>
     <string name="wakelock_blocker_app_enable_title">Enable App Wakelock Blocker</string>
@@ -233,13 +233,13 @@
     <string name="kwl_ccci_c2k_desc">Modem CDMA / AGPS data interface.</string>
     <string name="kwl_ccci_rpc_desc">Modem Remote Procedure Call (RIL / telephony daemon).</string>
     <string name="kwl_ccci_system_desc">Modem Cross-Core Communication Interface system control.</string>
-    <string name="tcp_congestion_category_title">Network &amp; TCP</string>
-    <string name="tcp_congestion_title">TCP Congestion Control</string>
+    <string name="tcp_congestion_category_title">Network</string>
+    <string name="tcp_congestion_title">TCP Congestion control</string>
     <string name="tcp_congestion_summary">%s</string>
-    <string name="tcp_congestion_bbr3">BBRv3 (Google Bottleneck Bandwidth and RTT)</string>
-    <string name="tcp_congestion_cubic">Cubic (Default Linux TCP)</string>
-    <string name="tcp_congestion_reno">Reno (Standard TCP)</string>
-    <string name="zram_category_title">Memory &amp; ZRAM</string>
+    <string name="tcp_congestion_bbr3">BBRv3</string>
+    <string name="tcp_congestion_cubic">Cubic</string>
+    <string name="tcp_congestion_reno">Reno</string>
+    <string name="zram_category_title">ZRAM</string>
     <string name="zram_recomp_algorithm_title">Secondary Compression Algorithm</string>
     <string name="zram_recomp_algorithm_summary">Algorithm used to recompress idle and cold memory pages: %s</string>
     <string name="zram_recompress_title">Recompress Memory Now</string>
@@ -251,29 +251,29 @@
     <string name="zram_reboot_dialog_message">Pages in ZRAM are currently compressed with the active algorithm. Restart your device to apply %s.</string>
     <string name="zram_reboot_dialog_reboot_now">Restart now</string>
     <string name="zram_reboot_dialog_later">Later</string>
-    <string name="wq_category_title">Scheduler &amp; Workqueues</string>
+    <string name="wq_category_title">Workqueues</string>
     <string name="wq_power_efficient_title">Power-efficient workqueues</string>
     <string name="wq_power_efficient_summary">Route unbound workqueues to energy-efficient CPU cores to reduce idle battery drain</string>
-    <string name="logging_category_title">Diagnostics &amp; Logging</string>
+    <string name="logging_category_title">Logging</string>
     <string name="kernel_printk_level_title">Kernel Console Log Level</string>
     <string name="kernel_printk_level_summary">%s</string>
-    <string name="kernel_printk_level_quiet">Quiet (Silences console logspam and reduces interrupts)</string>
-    <string name="kernel_printk_level_normal">Normal (Standard system warnings and errors)</string>
-    <string name="kernel_printk_level_verbose">Verbose / Debug (Full kernel console debugging)</string>
-    <string name="ntsync_category_title">Gaming &amp; Emulation</string>
+    <string name="kernel_printk_level_quiet">Quiet</string>
+    <string name="kernel_printk_level_normal">Normal</string>
+    <string name="kernel_printk_level_verbose">Verbose / Debug</string>
+    <string name="ntsync_category_title">Emulation</string>
     <string name="ntsync_driver_title">NTSync Driver</string>
-    <string name="ntsync_driver_active">Active (/dev/ntsync available for Wine / Proton)</string>
+    <string name="ntsync_driver_active">Active (/dev/ntsync available)</string>
     <string name="ntsync_driver_not_detected">Not detected (/dev/ntsync)</string>
 
     <!-- Battery Settings -->
-    <string name="battery_title">Battery Settings</string>
+    <string name="battery_title">Configure charging limits and bypass charging to save your battery.</string>
     <string name="battery_category_charging">Charging Speed</string>
     <string name="charging_speed_title">Charging speed limit</string>
     <string name="charging_speed_summary">Current charging speed limit: %s</string>
     <string name="charging_speed_disabled_summary">Speed limit disabled while bypass charging is active</string>
-    <string name="charging_speed_67w">67W (Default / Turbo)</string>
-    <string name="charging_speed_33w">33W (Moderate)</string>
-    <string name="charging_speed_18w">18W (Standard)</string>
+    <string name="charging_speed_67w">67W</string>
+    <string name="charging_speed_33w">33W</string>
+    <string name="charging_speed_18w">18W</string>
     <string name="battery_category_bypass">Bypass Charging</string>
     <string name="bypass_charging_title">Bypass charging</string>
     <string name="bypass_charging_summary">Power the motherboard directly from the charger without charging the battery. Reduces heat and wear during gaming.</string>
