@@ -14,6 +14,10 @@
 
 package com.xiaomi.settings.battery
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.drawable.Icon
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
@@ -23,39 +27,75 @@ import com.xiaomi.settings.R
 
 class BypassChargeTileService : TileService() {
 
+    private var isReceiverRegistered = false
+    private val powerReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            updateFromCurrentState()
+        }
+    }
+
     override fun onStartListening() {
         super.onStartListening()
-        updateTileState()
+        if (!isReceiverRegistered) {
+            val filter = IntentFilter().apply {
+                addAction(Intent.ACTION_POWER_CONNECTED)
+                addAction(Intent.ACTION_POWER_DISCONNECTED)
+                addAction(Intent.ACTION_BATTERY_CHANGED)
+            }
+            registerReceiver(powerReceiver, filter, Context.RECEIVER_EXPORTED)
+            isReceiverRegistered = true
+        }
+        updateFromCurrentState()
+    }
+
+    override fun onStopListening() {
+        super.onStopListening()
+        if (isReceiverRegistered) {
+            try {
+                unregisterReceiver(powerReceiver)
+            } catch (_: Exception) {}
+            isReceiverRegistered = false
+        }
+    }
+
+    private fun updateFromCurrentState() {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val isBypass = prefs.getBoolean(BatteryUtils.PREF_BYPASS_CHARGING, false)
+        val isPlugged = BatteryUtils.isChargerConnected(this)
+        applyTileState(isBypass, isPlugged)
     }
 
     override fun onClick() {
         super.onClick()
 
-        if (!BatteryUtils.isChargerConnected(this)) {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val currentState = prefs.getBoolean(BatteryUtils.PREF_BYPASS_CHARGING, false)
+        val newState = !currentState
+
+        val isPlugged = BatteryUtils.isChargerConnected(this)
+
+        if (newState && !isPlugged) {
             Toast.makeText(this, R.string.bypass_charger_required_toast, Toast.LENGTH_SHORT).show()
-            updateTileState()
+            applyTileState(isBypass = false, isPlugged = false)
             return
         }
 
-        val currentState = BatteryUtils.isBypassActive()
-        val newState = !currentState
+        // Optimistic instant UI update
+        applyTileState(isBypass = newState, isPlugged = isPlugged)
 
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         prefs.edit().putBoolean(BatteryUtils.PREF_BYPASS_CHARGING, newState).apply()
 
-        BatteryUtils.setBypassMode(this, newState)
-        updateTileState()
+        Thread {
+            BatteryUtils.setBypassMode(this, newState, skipTileRequest = true)
+        }.start()
     }
 
-    private fun updateTileState() {
+    private fun applyTileState(isBypass: Boolean, isPlugged: Boolean) {
         val qsTile = qsTile ?: return
-        val isPlugged = BatteryUtils.isChargerConnected(this)
-        val isBypass = BatteryUtils.isBypassActive() && isPlugged
-
         qsTile.label = getString(R.string.bypass_tile_label)
         qsTile.icon = Icon.createWithResource(this, R.drawable.ic_bypass_charging)
 
-        if (isBypass) {
+        if (isBypass && isPlugged) {
             qsTile.state = Tile.STATE_ACTIVE
             qsTile.subtitle = getString(R.string.bypass_notification_title)
         } else {

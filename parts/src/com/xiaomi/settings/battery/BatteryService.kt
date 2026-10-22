@@ -33,11 +33,16 @@ class BatteryService : Service() {
             when (action) {
                 Intent.ACTION_POWER_DISCONNECTED -> {
                     Log.i(TAG, "Power disconnected: resetting bypass")
-                    BatteryUtils.onChargerDisconnected(context)
+                    Thread {
+                        BatteryUtils.onChargerDisconnected(context)
+                    }.start()
                 }
                 Intent.ACTION_POWER_CONNECTED -> {
-                    val level = BatteryUtils.getBatteryLevel(context)
-                    BatteryUtils.onBatteryLevelChanged(context, level, true)
+                    Thread {
+                        val level = BatteryUtils.getBatteryLevel(context)
+                        BatteryUtils.onBatteryLevelChanged(context, level, true)
+                        BatteryUtils.updateTile(context)
+                    }.start()
                 }
                 Intent.ACTION_BATTERY_CHANGED -> {
                     val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
@@ -51,11 +56,13 @@ class BatteryService : Service() {
                         50
                     }
 
-                    if (!isPlugged && BatteryUtils.isBypassActive()) {
-                        BatteryUtils.onChargerDisconnected(context)
-                    } else {
-                        BatteryUtils.onBatteryLevelChanged(context, batteryPct, isPlugged)
-                    }
+                    Thread {
+                        if (!isPlugged && BatteryUtils.isBypassActive()) {
+                            BatteryUtils.onChargerDisconnected(context)
+                        } else {
+                            BatteryUtils.onBatteryLevelChanged(context, batteryPct, isPlugged)
+                        }
+                    }.start()
                 }
             }
         }
@@ -70,6 +77,20 @@ class BatteryService : Service() {
             addAction(Intent.ACTION_BATTERY_CHANGED)
         }
         registerReceiver(batteryReceiver, filter, Context.RECEIVER_EXPORTED)
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        Thread {
+            evaluateBatteryState()
+        }.start()
+        return START_STICKY
+    }
+
+    private fun evaluateBatteryState() {
+        val level = BatteryUtils.getBatteryLevel(this)
+        val isPlugged = BatteryUtils.isChargerConnected(this)
+        Log.d(TAG, "evaluateBatteryState: level=$level%, isPlugged=$isPlugged")
+        BatteryUtils.onBatteryLevelChanged(this, level, isPlugged)
     }
 
     override fun onDestroy() {

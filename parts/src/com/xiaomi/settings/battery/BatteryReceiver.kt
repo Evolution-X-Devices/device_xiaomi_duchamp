@@ -27,42 +27,50 @@ class BatteryReceiver : BroadcastReceiver() {
         val action = intent.action ?: return
         Log.d(TAG, "onReceive action: $action")
 
-        when (action) {
-            Intent.ACTION_POWER_DISCONNECTED -> {
-                BatteryUtils.onChargerDisconnected(context)
-            }
-            Intent.ACTION_POWER_CONNECTED -> {
-                val level = BatteryUtils.getBatteryLevel(context)
-                BatteryUtils.onBatteryLevelChanged(context, level, true)
-            }
-            Intent.ACTION_BATTERY_CHANGED -> {
-                val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
-                val scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
-                val plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)
-                val isPlugged = plugged > 0
+        val pendingResult = goAsync()
+        Thread {
+            try {
+                when (action) {
+                    Intent.ACTION_POWER_DISCONNECTED -> {
+                        BatteryUtils.onChargerDisconnected(context)
+                    }
+                    Intent.ACTION_POWER_CONNECTED -> {
+                        val level = BatteryUtils.getBatteryLevel(context)
+                        BatteryUtils.onBatteryLevelChanged(context, level, true)
+                        BatteryUtils.updateTile(context)
+                    }
+                    Intent.ACTION_BATTERY_CHANGED -> {
+                        val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+                        val scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
+                        val plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)
+                        val isPlugged = plugged > 0
 
-                val batteryPct = if (level >= 0 && scale > 0) {
-                    (level * 100) / scale
-                } else {
-                    50
-                }
+                        val batteryPct = if (level >= 0 && scale > 0) {
+                            (level * 100) / scale
+                        } else {
+                            50
+                        }
 
-                if (!isPlugged && BatteryUtils.isBypassActive()) {
-                    BatteryUtils.onChargerDisconnected(context)
-                } else {
-                    BatteryUtils.onBatteryLevelChanged(context, batteryPct, isPlugged)
+                        if (!isPlugged && BatteryUtils.isBypassActive()) {
+                            BatteryUtils.onChargerDisconnected(context)
+                        } else {
+                            BatteryUtils.onBatteryLevelChanged(context, batteryPct, isPlugged)
+                        }
+                    }
+                    BatteryUtils.ACTION_STOP_BYPASS -> {
+                        Log.i(TAG, "ACTION_STOP_BYPASS received from notification")
+                        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+                        prefs.edit()
+                            .putBoolean(BatteryUtils.PREF_BYPASS_CHARGING, false)
+                            .putBoolean(BatteryUtils.PREF_SMART_BYPASS_ACTIVE, false)
+                            .apply()
+                        BatteryUtils.setBypassMode(context, false)
+                    }
                 }
+            } finally {
+                pendingResult.finish()
             }
-            BatteryUtils.ACTION_STOP_BYPASS -> {
-                Log.i(TAG, "ACTION_STOP_BYPASS received from notification")
-                val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-                prefs.edit()
-                    .putBoolean(BatteryUtils.PREF_BYPASS_CHARGING, false)
-                    .putBoolean(BatteryUtils.PREF_SMART_BYPASS_ACTIVE, false)
-                    .apply()
-                BatteryUtils.setBypassMode(context, false)
-            }
-        }
+        }.start()
     }
 
     companion object {

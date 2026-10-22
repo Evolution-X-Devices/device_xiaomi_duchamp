@@ -60,25 +60,83 @@ object BatteryUtils {
     @Volatile
     private var isBypassActive = false
 
-    fun isBypassActive(): Boolean = isBypassActive
+    fun isBypassActive(context: Context? = null): Boolean {
+        if (!isBypassActive && context != null) {
+            val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+            if (prefs.getBoolean(PREF_BYPASS_CHARGING, false) || prefs.getBoolean(PREF_SMART_BYPASS_ACTIVE, false)) {
+                isBypassActive = true
+            }
+        }
+        return isBypassActive
+    }
 
     fun isChargerConnected(context: Context): Boolean {
-        return try {
+        try {
             val batteryIntent = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
             val plugged = batteryIntent?.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) ?: 0
-            plugged > 0
-        } catch (_: Exception) {
-            false
-        }
+            val status = batteryIntent?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
+            if (plugged > 0 ||
+                status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                status == BatteryManager.BATTERY_STATUS_FULL) {
+                return true
+            }
+        } catch (_: Exception) {}
+
+        try {
+            val bm = context.getSystemService(Context.BATTERY_SERVICE) as? BatteryManager
+            if (bm != null && bm.isCharging) {
+                return true
+            }
+        } catch (_: Exception) {}
+
+        try {
+            val statusFile = File("/sys/class/power_supply/battery/status")
+            if (statusFile.exists() && statusFile.canRead()) {
+                val status = statusFile.readText().trim()
+                if (status.equals("Charging", ignoreCase = true) ||
+                    status.equals("Full", ignoreCase = true) ||
+                    status.equals("Not charging", ignoreCase = true)) {
+                    return true
+                }
+            }
+            val usbOnline = File("/sys/class/power_supply/usb/online")
+            if (usbOnline.exists() && usbOnline.canRead() && usbOnline.readText().trim() == "1") {
+                return true
+            }
+        } catch (_: Exception) {}
+
+        return false
     }
 
     fun getBatteryLevel(context: Context): Int {
-        val batteryIntent = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-        val level = batteryIntent?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) ?: -1
-        val scale = batteryIntent?.getIntExtra(BatteryManager.EXTRA_SCALE, -1) ?: -1
-        return if (level >= 0 && scale > 0) {
-            (level * 100) / scale
-        } else {
+        try {
+            val file = File("/sys/class/power_supply/battery/capacity")
+            if (file.exists() && file.canRead()) {
+                val cap = file.readText().trim().toIntOrNull()
+                if (cap != null && cap in 0..100) {
+                    return cap
+                }
+            }
+        } catch (_: Exception) {}
+
+        try {
+            val bm = context.getSystemService(Context.BATTERY_SERVICE) as? BatteryManager
+            val propCap = bm?.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY) ?: -1
+            if (propCap in 0..100) {
+                return propCap
+            }
+        } catch (_: Exception) {}
+
+        return try {
+            val batteryIntent = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+            val level = batteryIntent?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) ?: -1
+            val scale = batteryIntent?.getIntExtra(BatteryManager.EXTRA_SCALE, -1) ?: -1
+            if (level >= 0 && scale > 0) {
+                (level * 100) / scale
+            } else {
+                50
+            }
+        } catch (_: Exception) {
             50
         }
     }
@@ -94,7 +152,7 @@ object BatteryUtils {
     }
 
     @Synchronized
-    fun setBypassMode(context: Context, enable: Boolean, isSmartLimit: Boolean = false) {
+    fun setBypassMode(context: Context, enable: Boolean, isSmartLimit: Boolean = false, skipTileRequest: Boolean = false) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         isBypassActive = enable
 
@@ -121,7 +179,9 @@ object BatteryUtils {
             }
         }
 
-        updateTile(context)
+        if (!skipTileRequest) {
+            updateTile(context)
+        }
     }
 
     fun onChargerDisconnected(context: Context) {
@@ -140,7 +200,7 @@ object BatteryUtils {
         }
     }
 
-    fun onBatteryLevelChanged(context: Context, level: Int, isPlugged: Boolean) {
+    fun onBatteryLevelChanged(context: Context, level: Int, isPlugged: Boolean, limitOverride: Int? = null) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         if (!isPlugged) {
             if (isBypassActive) {
@@ -149,25 +209,33 @@ object BatteryUtils {
             return
         }
 
-        val limitStr = prefs.getString(PREF_SMART_CHARGE_LIMIT, "0") ?: "0"
-        val limit = limitStr.toIntOrNull() ?: 0
+        val limit = limitOverride ?: (prefs.getString(PREF_SMART_CHARGE_LIMIT, "0") ?: "0").toIntOrNull() ?: 0
         val manualBypass = prefs.getBoolean(PREF_BYPASS_CHARGING, false)
+
+        Log.d(TAG, "onBatteryLevelChanged: level=$level%, isPlugged=$isPlugged, limit=$limit%, manualBypass=$manualBypass, isBypassActive=$isBypassActive")
 
         if (manualBypass) {
             if (!isBypassActive) {
-                setBypassMode(context, true, isSmartLimit = false)
+                setBypassMode(context, true, isSmartLimit = false, skipTileRequest = true)
             }
             return
         }
 
+        val isSmartActive = prefs.getBoolean(PREF_SMART_BYPASS_ACTIVE, false)
+
         if (limit > 0) {
-            val isSmartActive = prefs.getBoolean(PREF_SMART_BYPASS_ACTIVE, false)
             if (level >= limit && !isSmartActive) {
                 Log.i(TAG, "Battery reached limit ($level >= $limit%), activating smart bypass")
                 prefs.edit().putBoolean(PREF_SMART_BYPASS_ACTIVE, true).apply()
                 setBypassMode(context, true, isSmartLimit = true)
             } else if (level <= (limit - 2) && isSmartActive) {
                 Log.i(TAG, "Battery dropped below hysteresis ($level <= ${limit - 2}%), resuming charging")
+                prefs.edit().putBoolean(PREF_SMART_BYPASS_ACTIVE, false).apply()
+                setBypassMode(context, false, isSmartLimit = true)
+            }
+        } else {
+            if (isSmartActive) {
+                Log.i(TAG, "Smart limit disabled, deactivating smart bypass")
                 prefs.edit().putBoolean(PREF_SMART_BYPASS_ACTIVE, false).apply()
                 setBypassMode(context, false, isSmartLimit = true)
             }
@@ -202,15 +270,17 @@ object BatteryUtils {
     private fun showBypassNotification(context: Context) {
         val nm = context.getSystemService(NotificationManager::class.java) ?: return
 
-        val channel = NotificationChannel(
-            NOTIFICATION_CHANNEL_ID,
-            context.getString(R.string.bypass_notification_channel_name),
-            NotificationManager.IMPORTANCE_LOW
-        ).apply {
-            description = context.getString(R.string.bypass_notification_text)
-            setShowBadge(false)
+        if (nm.getNotificationChannel(NOTIFICATION_CHANNEL_ID) == null) {
+            val channel = NotificationChannel(
+                NOTIFICATION_CHANNEL_ID,
+                context.getString(R.string.bypass_notification_channel_name),
+                NotificationManager.IMPORTANCE_LOW
+            ).apply {
+                description = context.getString(R.string.bypass_notification_text)
+                setShowBadge(false)
+            }
+            nm.createNotificationChannel(channel)
         }
-        nm.createNotificationChannel(channel)
 
         val contentIntent = Intent(context, PartsActivity::class.java).apply {
             putExtra(PartsActivity.EXTRA_SHOW_FRAGMENT, BatterySettingsFragment::class.java.name)

@@ -37,7 +37,9 @@ class BatterySettingsFragment : SettingsBasePreferenceFragment() {
     private var calibrationPref: Preference? = null
 
     private val prefChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-        if (key == BatteryUtils.PREF_BYPASS_CHARGING || key == BatteryUtils.PREF_SMART_BYPASS_ACTIVE) {
+        if (key == BatteryUtils.PREF_BYPASS_CHARGING ||
+            key == BatteryUtils.PREF_SMART_BYPASS_ACTIVE ||
+            key == BatteryUtils.PREF_SMART_CHARGE_LIMIT) {
             activity?.runOnUiThread {
                 updateUiState()
             }
@@ -194,15 +196,25 @@ class BatterySettingsFragment : SettingsBasePreferenceFragment() {
         pref.setOnPreferenceChangeListener { _, newValue ->
             val limitStr = newValue as String
             val limit = limitStr.toIntOrNull() ?: 0
+
+            prefs.edit().putString(BatteryUtils.PREF_SMART_CHARGE_LIMIT, limitStr).apply()
+
             if (limit > 0) {
                 BatteryService.startService(requireContext())
-            } else if (!BatteryUtils.isBypassActive()) {
-                BatteryService.stopService(requireContext())
+            } else {
+                if (prefs.getBoolean(BatteryUtils.PREF_SMART_BYPASS_ACTIVE, false)) {
+                    prefs.edit().putBoolean(BatteryUtils.PREF_SMART_BYPASS_ACTIVE, false).apply()
+                    BatteryUtils.setBypassMode(requireContext(), false, isSmartLimit = true)
+                }
+                if (!BatteryUtils.isBypassActive()) {
+                    BatteryService.stopService(requireContext())
+                }
             }
 
             val isPlugged = BatteryUtils.isChargerConnected(requireContext())
             val level = BatteryUtils.getBatteryLevel(requireContext())
-            BatteryUtils.onBatteryLevelChanged(requireContext(), level, isPlugged)
+            BatteryUtils.onBatteryLevelChanged(requireContext(), level, isPlugged, limitOverride = limit)
+            updateUiState()
             true
         }
     }
@@ -230,7 +242,7 @@ class BatterySettingsFragment : SettingsBasePreferenceFragment() {
     private fun updateUiState(isPluggedOverride: Boolean? = null) {
         val context = context ?: return
         val isPlugged = isPluggedOverride ?: BatteryUtils.isChargerConnected(context)
-        val isBypass = BatteryUtils.isBypassActive() && isPlugged
+        val isBypass = BatteryUtils.isBypassActive(context) && isPlugged
 
         bypassChargingPref?.apply {
             isEnabled = isPlugged
