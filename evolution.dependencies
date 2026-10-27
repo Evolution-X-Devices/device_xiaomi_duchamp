@@ -21,8 +21,7 @@
   },
   {
     "repository": "hardware_dolby",
-    "target_path": "hardware/dolby",
-    "branch": "cnb-aospa"
+    "target_path": "hardware/dolby"
   },
   {
     "repository": "packages_apps_ViPER4AndroidFX",
