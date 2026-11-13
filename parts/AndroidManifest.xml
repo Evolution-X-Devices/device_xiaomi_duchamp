@@ -87,6 +87,9 @@
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.ACTIVE_TILE"
+                android:value="true" />
         </service>
         <service android:name=".htsr.HTSRService" android:exported="false" />
 
@@ -99,6 +102,9 @@
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.ACTIVE_TILE"
+                android:value="true" />
         </service>
 
         <!-- Battery -->
