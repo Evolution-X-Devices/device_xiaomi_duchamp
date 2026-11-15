@@ -34,9 +34,5 @@
   {
     "repository": "vendor_xiaomi_duchamp-miuicamera",
     "target_path": "vendor/xiaomi/duchamp-miuicamera"
-  },
-  {
-    "repository": "packages_apps_GameBar",
-    "target_path: "packages/apps/GameBar"
   }
 ]
